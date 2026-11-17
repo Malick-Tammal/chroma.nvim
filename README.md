@@ -15,19 +15,7 @@ Lightweight, fast and customizable Lua theming engine for Neovim <br> with 99+ b
 
 ---
 
-
-A small, data-driven colorscheme engine for Neovim. Themes are plain palette
-files; the engine owns every highlight group.
-
-``` lua
-themes/<name>.lua     -- Palette only (base_30 + base_16 + type)
-polish/<name>.lua     -- Optional highlight overrides
-highlights/           -- Group definitions, shared by every theme
-colors/ch-<name>.lua  -- :colorscheme shims
-```
-
-Ships **99+ themes**: 98 vendored from [NvChad/base46](https://github.com/NvChad/base46)
-and the locally made `monokai-fusion`. The themes use the base46-compatible
+Ships with **99+ themes**: 98 vendored from [NvChad/base46](https://github.com/NvChad/base46). The themes use the base46-compatible
 palette schema, so any base46 theme also works.
 
 ## Requirements
