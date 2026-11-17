@@ -1,0 +1,35 @@
+
+local M = {
+  ["@lsp.type.class"] = { fg = "cyan" },
+  ["@lsp.type.comment"] = { fg = "grey_fg", italic = true },
+  ["@lsp.type.decorator"] = { fg = "cyan" },
+  ["@lsp.type.enum"] = { fg = "cyan" },
+  ["@lsp.type.enumMember"] = { fg = "purple" },
+  ["@lsp.type.event"] = { fg = "cyan" },
+  ["@lsp.type.function"] = { fg = "green" },
+  ["@lsp.type.function.method"] = { fg = "green" },
+  ["@lsp.type.interface"] = { fg = "cyan" },
+  ["@lsp.type.keyword"] = { fg = "red" },
+  ["@lsp.type.label"] = { fg = "cyan" },
+  ["@lsp.type.macro"] = { fg = "red" },
+  ["@lsp.type.method"] = { fg = "green" },
+  ["@lsp.type.modifier"] = { fg = "red" },
+  ["@lsp.type.namespace"] = { fg = "cyan" },
+  ["@lsp.type.number"] = { fg = "purple" },
+  ["@lsp.type.operator"] = { fg = "red" },
+  ["@lsp.type.parameter"] = { fg = "blue", italic = true },
+  ["@lsp.type.property"] = { fg = "text" },
+  ["@lsp.type.regexp"] = { fg = "yellow" },
+  ["@lsp.type.string"] = { fg = "yellow" },
+  ["@lsp.type.struct"] = { fg = "cyan" },
+  ["@lsp.type.type"] = { fg = "cyan" },
+  ["@lsp.type.typeParameter"] = { fg = "cyan" },
+  ["@lsp.type.variable"] = { fg = "text" },
+
+  ["@lsp.mod.deprecated"] = { strikethrough = true },
+  ["@lsp.mod.readonly"] = { italic = true },
+  ["@lsp.mod.static"] = { italic = true },
+  ["@lsp.typemod.variable.global"] = { fg = "text" },
+}
+
+return M
