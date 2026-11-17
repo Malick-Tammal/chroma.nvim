@@ -9,19 +9,9 @@ Lightweight, fast and customizable Lua theming engine for Neovim <br> with 99+ b
 
 </br>
 
-<div align="center" style="display: flex;">
-  <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim">
-    <img src="https://img.shields.io/github/stars/malick-tammal/chroma.nvim?colorA=282922&colorB=FFD866&style=for-the-badge&cacheSeconds=4300" />
-  </a>
-  
-  <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim">
-    <img src="https://img.shields.io/github/issues/malick-tammal/chroma.nvim?colorA=282922&colorB=BCB1F5&style=for-the-badge&cacheSeconds=43002" />
-  </a>
-  
-  <a href="https://github.com/malick-tammal/chroma.nvim/contributors"><img src="https://img.shields.io/github/contributors/malick-tammal/chroma.nvim?colorA=282922&colorB=FDAD85&style=for-the-badge&cacheSeconds=4300" alt="Contributors"></a>
-
-  <a href="https://github.com/malick-tammal/chroma.nvim/network/members"><img src="https://img.shields.io/github/forks/malick-tammal/chroma.nvim?colorA=282922&colorB=A9DC76&style=for-the-badge&cacheSeconds=4300" alt="Forks"></a>
-</div>
+<p align="center">
+  <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim"><img src="https://img.shields.io/github/stars/malick-tammal/chroma.nvim?colorA=282922&colorB=FFD866&style=for-the-badge&cacheSeconds=4300" alt="Stars" /></a> <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim"><img src="https://img.shields.io/github/issues/malick-tammal/chroma.nvim?colorA=282922&colorB=BCB1F5&style=for-the-badge&cacheSeconds=4300" alt="Issues" /></a> <a href="https://github.com/malick-tammal/chroma.nvim/contributors"><img src="https://img.shields.io/github/contributors/malick-tammal/chroma.nvim?colorA=282922&colorB=FDAD85&style=for-the-badge&cacheSeconds=4300" alt="Contributors" /></a> <a href="https://github.com/malick-tammal/chroma.nvim/network/members"><img src="https://img.shields.io/github/forks/malick-tammal/chroma.nvim?colorA=282922&colorB=A9DC76&style=for-the-badge&cacheSeconds=4300" alt="Forks" /></a>
+</p>
 
 ---
 
