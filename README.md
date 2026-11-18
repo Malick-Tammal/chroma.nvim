@@ -27,7 +27,7 @@ base46 theme also works.
 ## 📸 Preview
 
 <details open>
-<summary>⚡ <b>Monokai Fusion</b> (Default)</summary>
+<summary><b>Monokai Fusion</b> (Default)</summary>
 <br>
 
 <img src="assets/preview/monokai-fusion/multi.png" alt="Monokai Fusion Code View" width="100%" />
@@ -39,7 +39,7 @@ base46 theme also works.
 </details>
 
 <details>
-<summary>🌲 <b>Everforest</b></summary>
+<summary><b>Everforest</b></summary>
 <br>
 
 <img src="assets/preview/everforest/multi.png" alt="Everforest Code View" width="100%" />
@@ -51,7 +51,7 @@ base46 theme also works.
 </details>
 
 <details>
-<summary>🪵 <b>Gruvbox Material</b></summary>
+<summary><b>Gruvbox Material</b></summary>
 <br>
 
 <img src="assets/preview/gruvbox-material/multi.png" alt="Gruvbox Material Code View" width="100%" />
@@ -63,7 +63,7 @@ base46 theme also works.
 </details>
 
 <details>
-<summary>🌸 <b>Everblush</b></summary>
+<summary><b>Everblush</b></summary>
 <br>
 
 <img src="assets/preview/everblush/multi.png" alt="Everblush Code View" width="100%" />
@@ -137,13 +137,13 @@ require("chroma").setup {
 
 | Command | Description |
 | --- | --- |
-| 🔭 `:Chroma pick` | Open the Telescope theme picker |
-| 📜 `:Chroma list` | List available themes |
-| 🎨 `:Chroma apply <name>` | Apply a theme by name |
-| 💡 `:Chroma current` | Print the active theme |
-| 🔄 `:Chroma reset` | Clear the saved theme and use the configured default |
-| 🩺 `:checkhealth chroma` | Report themes, integrations, and configuration problems |
-| 🎭 `:colorscheme ch-<name>` | Load any shipped theme through its shim |
+| `:Chroma pick` | Open the Telescope theme picker |
+| `:Chroma list` | List available themes |
+| `:Chroma apply <name>` | Apply a theme by name |
+| `:Chroma current` | Print the active theme |
+| `:Chroma reset` | Clear the saved theme and use the configured default |
+| `:checkhealth chroma` | Report themes, integrations, and configuration problems |
+| `:colorscheme ch-<name>` | Load any shipped theme through its shim |
 
 ```lua
 local chroma = require("chroma")
@@ -163,9 +163,9 @@ print(chroma.palette().black)
 
 | Guide | What it covers |
 | --- | --- |
-| 📖 [User guide](docs/guide.md) | Installation, every option, commands, Lua API, transparency, persistence, picker, Lualine, plugin integrations, troubleshooting |
-| 🎨 [Theme guide](docs/themes.md) | Palette schema, writing a theme, polish files, testing, and submitting a theme to chroma.nvim |
-| 🖌️ [Highlight reference](docs/highlights.md) | Highlight spec syntax, override methods, custom groups, and per-theme polish recipes |
+| [User guide](docs/guide.md) | Installation, every option, commands, Lua API, transparency, persistence, picker, Lualine, plugin integrations, troubleshooting |
+| [Theme guide](docs/themes.md) | Palette schema, writing a theme, polish files, testing, and submitting a theme to chroma.nvim |
+| [Highlight reference](docs/highlights.md) | Highlight spec syntax, override methods, custom groups, and per-theme polish recipes |
 
 Once installed, `:help chroma` opens the same reference inside Neovim.
 
@@ -185,10 +185,10 @@ Bug reports, plugin integrations, and new themes are welcome! Read
 
 ## 💖 Credits
 
-- 🎨 Palettes and theme schema: [NvChad/base46](https://github.com/NvChad/base46),
+- Palettes and theme schema: [NvChad/base46](https://github.com/NvChad/base46),
   MIT, © 2019 Ashkan Kiani — vendored at tag `v3.0`.
-- ⚡ `monokai-fusion`: derived from Monokai Pro.
-- 📐 HSL helpers in `lua/chroma/engine/resolve.lua` numerically match base46.
+- `monokai-fusion`: derived from Monokai Pro.
+- HSL helpers in `lua/chroma/engine/resolve.lua` numerically match base46.
 
 Individual theme credits live in
 [`lua/chroma/themes/CREDITS.md`](lua/chroma/themes/CREDITS.md).
