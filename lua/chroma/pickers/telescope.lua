@@ -115,7 +115,7 @@ function M.pick()
   pickers
     .new({}, {
       prompt_title = "",
-      results_title = "",
+      results_title = "󱥚 Themes",
       prompt_prefix = "   ",
       selection_caret = "",
       entry_prefix = "",
