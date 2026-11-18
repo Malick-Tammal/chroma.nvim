@@ -1,0 +1,390 @@
+*chroma.txt*  Data-driven colorschemes for Neovim   *chroma* *chroma.nvim*
+
+==============================================================================
+CONTENTS                                                    *chroma-contents*
+
+    1. Introduction ......................... |chroma-introduction|
+    2. Requirements ......................... |chroma-requirements|
+    3. Setup ................................ |chroma-setup|
+    4. Commands ............................. |chroma-commands|
+    5. Lua API .............................. |chroma-api|
+    6. Highlight specs ...................... |chroma-specs|
+    7. Themes ............................... |chroma-themes|
+    8. Polish ............................... |chroma-polish|
+    9. Integrations ......................... |chroma-integrations|
+   10. Transparency ......................... |chroma-transparency|
+   11. Persistence .......................... |chroma-persistence|
+   12. `:colorscheme` support ................ |chroma-colorscheme|
+   13. Health ............................... |chroma-health|
+   14. License .............................. |chroma-license|
+
+==============================================================================
+1. INTRODUCTION                                         *chroma-introduction*
+
+chroma.nvim is a theming engine. A theme is a palette of colors, and the
+engine derives every highlight group from it: syntax, Treesitter, LSP,
+semantic tokens, and plugin integrations. A theme never calls
+|nvim_set_hl()|.
+
+The engine ships with 99 base46-compatible themes and accepts any base46
+theme. Adding a theme means adding a palette file, not writing highlight
+groups.
+
+==============================================================================
+2. REQUIREMENTS                                         *chroma-requirements*
+
+- Neovim 0.9 or newer.
+- `telescope.nvim` for |:Chroma| `pick` (optional).
+- `lualine.nvim` for the built-in Lualine theme (optional).
+
+No Node.js, language server, or external binary is required.
+
+==============================================================================
+3. SETUP                                                       *chroma-setup*
+
+With lazy.nvim: >lua
+
+    return {
+      "malick-tammal/chroma.nvim",
+      lazy = false,
+      priority = 1000,
+      config = function()
+        require("chroma").setup {
+          theme = "monokai-fusion",
+        }
+      end,
+    }
+<
+Call |chroma.setup()| once during startup:
+
+                                                        *chroma-config*
+>lua
+
+    require("chroma").setup {
+      theme = "monokai-fusion", -- startup theme
+      transparency = false,     -- set common backgrounds to NONE
+      persist = true,           -- remember the last applied theme
+      overrides = nil,          -- table or function(palette, theme)
+    }
+<
+`lazy = false` and `priority = 1000` make the colorscheme available before
+other plugins read highlight groups. If chroma loads later, call
+|chroma.apply()| yourself.
+
+==============================================================================
+4. COMMANDS                                                 *chroma-commands*
+
+                                                              *:Chroma*
+:Chroma pick            Open the Telescope theme picker. Requires Telescope.
+
+:Chroma list            List every discovered theme.
+
+:Chroma apply {name}    Apply a theme by name.
+
+:Chroma current         Print the active theme.
+
+:Chroma reset           Clear the saved theme and reapply the configured
+                        default.
+
+:checkhealth chroma     Report requirements, themes, integrations, and
+                        configuration problems. See |chroma-health|.
+
+==============================================================================
+5. LUA API                                                       *chroma-api*
+
+                                                          *chroma.setup()*
+chroma.setup({config})
+    Merge `config` over the defaults and register |:Chroma|. Applies the
+    startup theme and reports failures with |vim.notify()|.
+    See |chroma-config|.
+
+                                                          *chroma.apply()*
+chroma.apply({name} [, {opts}])
+    Apply the theme `name`. Raises an error for an unknown theme.
+    `opts` keys:
+      quiet       `true` suppresses the notification. Default `false`.
+      persist     `false` skips saving the theme. Default `true`.
+      fire_event  `false` suppresses the |ColorScheme| event. Default `true`.
+
+                                                          *chroma.current()*
+chroma.current()
+    Return the active theme name, or `nil` before the first apply.
+
+                                                             *chroma.list()*
+chroma.list()
+    Return the sorted list of discovered theme names.
+
+                                                             *chroma.find()*
+chroma.find({name})
+    Return the theme table without applying it, or `nil`.
+
+                                                            *chroma.palette()*
+chroma.palette()
+    Return the resolved palette of the active theme, or `nil` before the
+    first apply.
+
+                                                            *chroma.refresh()*
+chroma.refresh()
+    Clear the cached theme list. Call this after adding theme files at
+    runtime, then use |chroma.list()| or |:Chroma| `list`.
+
+==============================================================================
+6. HIGHLIGHT SPECS                                            *chroma-specs*
+
+A highlight spec is a Lua table resolved against the palette.
+
+Palette reference: >lua
+    { fg = "yellow" }
+    { fg = "text", bg = "black2", sp = "red" }
+    { bg = "NONE" }
+<
+Contrast-aware foreground: >lua
+    { fg = { "contrast", "cyan" }, bg = "cyan" }
+<
+Lighten a color by an amount: >lua
+    { bg = { "black", 12 } }
+<
+Mix two colors by a percentage: >lua
+    { bg = { "one_bg2", "red", 18 } }
+<
+Link to another group: >lua
+    { link = "Visual" }
+<
+Blend a background over a base color: >lua
+    { fg = "white", bg = "blue", bg_alpha = 0.18, bg_base = "black2" }
+<
+Other keys are passed to |nvim_set_hl()|, for example `bold`, `italic`,
+`underline`, `undercurl`, `strikethrough`, `nocombine`, and `blend`.
+
+==============================================================================
+7. THEMES                                                     *chroma-themes*
+
+A theme file returns a table: >lua
+
+    local M = {}
+
+    M.base_30 = {
+      black = "#1d1e19",
+      darker_black = "#171814",
+      black2 = "#282922",
+      one_bg = "#2e2e29",
+      one_bg2 = "#3d4035",
+      white = "#FDFFF1",
+      grey_fg = "#606359",
+      red = "#ff6188",
+      green = "#a9dc76",
+      yellow = "#ffe085",
+      blue = "#fc9867",
+      cyan = "#78dce8",
+      purple = "#ab9df2",
+    }
+
+    M.base_16 = {
+      base00 = "#1d1e19",
+      base05 = "#FDFFF1",
+      base08 = "#ff6188",
+      base0A = "#ffe085",
+      base0B = "#a9dc76",
+      base0C = "#78dce8",
+      base0D = "#60b0ba",
+      base0E = "#ab9df2",
+    }
+
+    M.type = "dark" -- or "light"
+
+    return M
+<
+Missing palette keys are derived from related keys. Shipping a complete
+`base_30` and `base_16` palette is recommended. The full list of keys and
+their roles is in |chroma-themes-full|.
+
+A theme lives in one of these locations:
+    lua/chroma/themes/{name}.lua
+    lua/themes/{name}.lua
+
+After adding a file at runtime, call |chroma.refresh()| before applying it.
+
+To support `:colorscheme`, add a shim:
+    colors/ch-{name}.lua
+See |chroma-colorscheme|.
+
+                                                    *chroma-themes-full*
+The complete `base_30` palette consists of:
+    Backgrounds: `black`, `darker_black`, `black2`, `one_bg`, `one_bg2`,
+    `one_bg3`, `lightbg`, `statusline_bg`, `line`
+    Foregrounds: `white`, `light_grey`, `grey`, `grey_fg`, `grey_fg2`
+    Accents: `red`, `baby_pink`, `pink`, `green`, `vibrant_green`,
+    `yellow`, `sun`, `orange`, `blue`, `nord_blue`, `cyan`, `teal`,
+    `purple`, `dark_purple`
+    UI: `pmenu_bg`, `folder_bg`
+
+The complete `base_16` palette uses `base00` through `base0F` with the
+classic base16 semantics.
+
+==============================================================================
+8. POLISH                                                     *chroma-polish*
+
+A theme can override groups for itself with `M.polish_hl`. Keys are
+integration names, the same names listed in |chroma-integrations|. >lua
+
+    M.polish_hl = {
+      defaults = {
+        CursorLine = { bg = "one_bg2" },
+        Comment = { fg = "grey_fg", italic = true },
+      },
+      telescope = {
+        TelescopeBorder = { fg = "darker_black" },
+      },
+    }
+<
+For larger tweaks, use a separate polish file:
+    lua/chroma/polish/{theme}.lua
+
+The file name must match the theme, and it returns the same
+integration-keyed table: >lua
+
+    return {
+      defaults = { CursorLine = { bg = "one_bg" } },
+    }
+<
+The merge order is: >text
+
+    shared highlights
+      -> theme.polish_hl
+      -> polish/{theme}.lua
+      -> setup overrides
+      -> transparency
+<
+Use `setup.overrides` for raw highlight group names. It accepts a table or a
+function: >lua
+
+    require("chroma").setup {
+      overrides = function(palette, theme)
+        return {
+          CursorLine = { bg = palette.one_bg },
+          Search = { bg = { "black", 12 } },
+        }
+      end,
+    }
+<
+If the function throws, chroma notifies and skips the overrides.
+
+==============================================================================
+9. INTEGRATIONS                                         *chroma-integrations*
+
+These keys are used by `polish_hl` and by `lua/chroma/polish/{theme}.lua`.
+
+    Key               Module
+    defaults          highlights/defaults.lua
+    syntax            highlights/syntax.lua
+    treesitter        highlights/treesitter.lua
+    lsp               highlights/lsp.lua
+    semantic_tokens   highlights/semantic_tokens.lua
+    telescope         highlights/plugins/telescope.lua
+    bufferline        highlights/plugins/bufferline.lua
+    cmp               highlights/plugins/cmp.lua
+    snacks            highlights/plugins/snacks.lua
+    neo-tree          highlights/plugins/neo-tree.lua
+    mini              highlights/plugins/mini.lua
+    noice             highlights/plugins/noice.lua
+    notify            highlights/plugins/notify.lua
+    yanky             highlights/plugins/yanky.lua
+    whichkey          highlights/plugins/whichkey.lua
+    render-markdown   highlights/plugins/render-markdown.lua
+    lspsaga           highlights/plugins/lspsaga.lua
+    inc-rename        highlights/plugins/inc-rename.lua
+    gitsigns          highlights/plugins/gitsigns.lua
+    flash             highlights/plugins/flash.lua
+    todo              highlights/plugins/todo.lua
+    mason             highlights/plugins/mason.lua
+    scrollbar         highlights/plugins/scrollbar.lua
+    minuet-ai         highlights/plugins/minuet-ai.lua
+    smear-cursor      highlights/plugins/smear-cursor.lua
+
+Lualine uses the builder in `lua/chroma/engine/lualine.lua`: >lua
+
+    require("lualine").setup {
+      options = {
+        theme = function()
+          return require("chroma.engine.lualine").get()
+        end,
+      },
+    }
+<
+smear-cursor.nvim computes its own colors, so point `cursor_color` at the
+carrier group: >lua
+
+    require("smear_cursor").setup {
+      cursor_color = "SmearCursorColor",
+    }
+<
+smear reads the group's `bg`; override it per theme with
+`polish_hl["smear-cursor"].SmearCursorColor = { bg = "orange" }`.
+
+==============================================================================
+10. TRANSPARENCY                                        *chroma-transparency*
+
+When `transparency = true`, these groups receive `bg = "NONE"`:
+
+    Normal, NormalNC, NormalFloat, FloatBorder, SignColumn, StatusLine,
+    StatusLineNC, WinBar, WinBarNC, TabLine, TabLineFill,
+    NeoTreeNormal, NeoTreeNormalNC, SnacksExplorerNormal,
+    NoiceCmdlinePopup, NotifyINFOBody, NotifyWARNBody, NotifyERRORBody
+
+Transparency runs last, so an override cannot restore a background for a
+listed group. Style a group that is not listed, or disable transparency.
+
+==============================================================================
+11. PERSISTENCE                                        *chroma-persistence*
+
+Applying a theme writes its name to:
+    stdpath("state")/chroma/current
+
+On the next startup the saved theme overrides `setup { theme = ... }`.
+This applies to |:Chroma| `apply`, |:Chroma| `pick`, `:colorscheme`, and
+|chroma.apply()|.
+
+Use |:Chroma| `reset` to clear the saved theme, or disable persistence: >lua
+
+    require("chroma").setup { persist = false }
+<
+`chroma.apply(name, { persist = false })` skips persistence for one call.
+
+==============================================================================
+12. COLORSCHEME SUPPORT                             *chroma-colorscheme*
+
+Each shipped theme has a shim:
+    colors/ch-{name}.lua
+containing: >lua
+
+    require("chroma").apply("{name}", { fire_event = false, quiet = true })
+<
+That enables: >vim
+
+    :colorscheme ch-{name}
+<
+`fire_event = false` avoids a duplicate |ColorScheme| event, and
+`quiet = true` suppresses the notification. chroma fires exactly one
+|ColorScheme| event per theme switch.
+
+==============================================================================
+13. HEALTH                                                 *chroma-health*
+
+Run: >vim
+
+    :checkhealth chroma
+<
+It reports:
+- Neovim version requirements.
+- Whether Telescope is available for |:Chroma| `pick`.
+- Whether |chroma.setup()| has run.
+- Discovered themes and palette problems.
+- The Lualine theme builder and plugin integrations.
+
+==============================================================================
+14. LICENSE                                                 *chroma-license*
+
+MIT. See the LICENSE file in the repository. Themes vendored from
+NvChad/base46 keep their upstream credit in `lua/chroma/themes/CREDITS.md`.
+
+ vim:tw=78:ts=8:ft=help:norl:

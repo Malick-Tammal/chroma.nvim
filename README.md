@@ -136,6 +136,8 @@ print(chroma.palette().black)
 | [Theme guide](docs/themes.md) | Palette schema, writing a theme, polish files, testing, and submitting a theme to chroma.nvim |
 | [Highlight reference](docs/highlights.md) | Highlight spec syntax, override methods, custom groups, and per-theme polish recipes |
 
+Once installed, `:help chroma` opens the same reference inside Neovim.
+
 ## Supported plugins
 
 chroma.nvim ships highlights for telescope, bufferline, nvim-cmp, snacks,

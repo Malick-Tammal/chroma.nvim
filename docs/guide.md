@@ -1,9 +1,10 @@
 # User guide
 
 This guide covers installing chroma.nvim, every configuration option, the
-commands and Lua API, and the parts of Neovim that the engine touches. For
-authoring a palette, see [themes.md](themes.md). For highlight specs and custom
-groups, see [highlights.md](highlights.md).
+commands and Lua API, and the parts of Neovim that the engine touches. Inside
+Neovim, `:help chroma` opens the built-in help file. For authoring a palette,
+see [themes.md](themes.md). For highlight specs and custom groups, see
+[highlights.md](highlights.md).
 
 - [Requirements](#requirements)
 - [Installation](#installation)

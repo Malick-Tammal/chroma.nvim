@@ -31,6 +31,7 @@ lua/chroma/
   polish/               # Optional per-theme highlight overrides
   themes/               # Palette data only (one file per theme)
 colors/                 # :colorscheme ch-<name> shims
+doc/                    # Vim help (:help chroma)
 docs/                   # User guide, theme guide, highlight reference
 tests/                  # Headless test scripts + run.sh
 assets/                 # Banner and preview images
