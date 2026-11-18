@@ -180,7 +180,21 @@ All themes also ship highlights for Neovim’s defaults, syntax, Treesitter, LSP
 | mason.nvim | `mason` |
 | nvim-scrollbar | `scrollbar` |
 | minuet-ai.nvim | `minuet-ai` |
+| smear-cursor.nvim | `smear-cursor` |
 | lualine.nvim | `lualine` |
+
+> **smear-cursor.nvim**: the plugin computes its own colors, so point its
+> `cursor_color` at the `SmearCursorColor` group to make the smear follow the
+> theme:
+>
+> ```lua
+> require("smear_cursor").setup {
+>   cursor_color = "SmearCursorColor",
+> }
+> ```
+>
+> Recolor it per theme with
+> `polish_hl["smear-cursor"].SmearCursorColor = { bg = "orange" }`.
 
 </details>
 

@@ -24,4 +24,5 @@ return {
   "plugins.mason",
   "plugins.scrollbar",
   "plugins.minuet-ai",
+  "plugins.smear-cursor",
 }
