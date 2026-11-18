@@ -39,21 +39,27 @@ function M.pick()
   local conf = require("telescope.config").values
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
-  local previewers = require("telescope.previewers")
   local entry_display = require("telescope.pickers.entry_display")
 
-  local swatch_ns = vim.api.nvim_create_namespace("chroma_swatches")
   local inline_ns = vim.api.nvim_create_namespace("chroma_inline_swatches")
 
   local items = {}
+  local max_name_len = 0
+
   for _, name in ipairs(names) do
     local data = build_theme_data(name)
     if data then
+      max_name_len = math.max(max_name_len, vim.fn.strdisplaywidth(data.display))
       items[#items + 1] = data
     end
   end
 
-  local displayer_items = { { width = 25 } }
+  local gap_width = 6
+  local name_col_width = max_name_len + gap_width
+
+  local displayer_items = {
+    { width = name_col_width },
+  }
   for _ = 1, #data_mod.INLINE_SWATCH_KEYS do
     displayer_items[#displayer_items + 1] = { width = 1 }
   end
@@ -80,37 +86,8 @@ function M.pick()
     end
   end
 
-  local previewer = previewers.new_buffer_previewer({
-    title = "",
-    define_preview = function(self, entry)
-      local data = entry.data
-      if not data then
-        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, { "unknown theme" })
-        return
-      end
-
-      local preview_width = self.state.winid
-          and vim.api.nvim_win_is_valid(self.state.winid)
-          and vim.api.nvim_win_get_width(self.state.winid)
-        or vim.o.columns
-      local columns = preview_width >= (data_mod.CELL_W * 2 + 2) and 2 or 1
-      local lines, spans = data_mod.preview_lines(data, columns)
-
-      vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
-      vim.api.nvim_buf_clear_namespace(self.state.bufnr, swatch_ns, 0, -1)
-
-      for _, span in ipairs(spans) do
-        vim.api.nvim_buf_add_highlight(
-          self.state.bufnr,
-          swatch_ns,
-          swatch_hl(span.hex),
-          span.row,
-          span.start,
-          span.finish
-        )
-      end
-    end,
-  })
+  local num_swatches = #data_mod.INLINE_SWATCH_KEYS
+  local total_content_width = name_col_width + (num_swatches * 2) + 4
 
   pickers
     .new({}, {
@@ -122,7 +99,7 @@ function M.pick()
 
       layout_strategy = "vertical",
       layout_config = {
-        width = 0.30,
+        width = total_content_width,
         height = 0.7,
       },
       finder = finders.new_table({
@@ -137,7 +114,7 @@ function M.pick()
         end,
       }),
       sorter = conf.generic_sorter({}),
-      previewer = previewer,
+      previewer = false,
       attach_mappings = function(prompt_bufnr, map)
         local picker = action_state.get_current_picker(prompt_bufnr)
 
