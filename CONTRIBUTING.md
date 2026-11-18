@@ -31,6 +31,7 @@ lua/chroma/
   polish/               # Optional per-theme highlight overrides
   themes/               # Palette data only (one file per theme)
 colors/                 # :colorscheme ch-<name> shims
+docs/                   # User guide, theme guide, highlight reference
 tests/                  # Headless test scripts + run.sh
 assets/                 # Banner and preview images
 ```
@@ -153,46 +154,28 @@ return M
 4. Recolor it per theme with
    `polish_hl = { example = { ExampleBorder = { fg = "orange" } } }` if the
    integration needs tuning.
-5. Add a row to the **Supported Plugins** table in `README.md`.
+5. Add a row to the **Supported plugins** table in `docs/guide.md`.
 6. Apply a theme with the plugin installed and check the result with `:Inspect`
    (or `:hi <Group>`), plus `:checkhealth chroma`.
 7. If the plugin computes its own colors, document the required plugin-side
-   option in the README instead of relying on highlight groups alone.
+   option in `docs/guide.md` instead of relying on highlight groups alone.
 
 ### Adding a theme
 
-1. Drop a palette file in `lua/chroma/themes/<name>.lua`:
+See [docs/themes.md](docs/themes.md) for the palette schema, polish files,
+testing, and the full submission checklist. In short, a theme contribution is:
 
-   ```lua
-   local M = {}
+1. `lua/chroma/themes/<name>.lua` — palette only, using the base46-compatible
+   schema and a credit header when vendored.
+2. `colors/ch-<name>.lua` — `:colorscheme` shim.
+3. Optional `lua/chroma/polish/<name>.lua` — integration-keyed tweaks.
+4. Optional `assets/preview/<name>.png` — screenshot for the README.
+5. Attribution in `lua/chroma/themes/CREDITS.md` when the palette is adapted.
+6. `THEME=<name> bash tests/run.sh`, plus `:Chroma list`, `:Chroma pick`,
+   `:colorscheme ch-<name>`, and `:checkhealth chroma`.
 
-   M.base_30 = { --[[ ... ]] }
-   M.base_16 = { --[[ ... ]] }
-   M.type = "dark" -- or "light"
-
-   -- Optional highlight tweaks owned by this theme.
-   M.polish_hl = {
-     defaults = { CursorLine = { bg = "one_bg2" } },
-   }
-
-   return M
-   ```
-
-2. Use the base46-compatible schema. Remove any `require("base46").override_theme(...)`
-   call or NvChad `nvconfig` block before vendoring an upstream theme.
-3. Keep the upstream credit header when the palette is vendored.
-4. Add the `:colorscheme` shim `colors/ch-<name>.lua`:
-
-   ```lua
-   require("chroma").apply("<name>", { fire_event = false, quiet = true })
-   ```
-
-5. Optionally add per-theme polish in `lua/chroma/polish/<name>.lua`
-   (integration-keyed, see `lua/chroma/polish/README.md`).
-6. Run the tests with `THEME=<name> bash tests/run.sh`, then verify
-   `:Chroma list`, `:Chroma pick`, `:colorscheme ch-<name>`, and
-   `:checkhealth chroma`.
-7. If the theme is vendored, add or update its attribution in `CREDITS.md`.
+The full step-by-step, including the review checklist, is in
+[docs/themes.md#submitting-a-theme](docs/themes.md#submitting-a-theme).
 
 ## Commit messages
 
