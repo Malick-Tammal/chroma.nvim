@@ -1,5 +1,6 @@
 local chroma = require("chroma")
-local name = vim.env.THEME or "monokai-fusion"
+-- Fixed reference theme; these integration tests do not depend on THEME.
+local name = "monokai-fusion"
 local count = 0
 
 vim.api.nvim_create_autocmd("ColorScheme", {

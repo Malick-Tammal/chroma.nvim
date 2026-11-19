@@ -8,6 +8,11 @@ chroma.setup { theme = name, persist = false }
 local p = chroma.palette()
 assert(type(p) == "table", "palette is nil after setup")
 
+-- current() and palette() must reflect the applied theme immediately after setup.
+assert(chroma.current() == name,
+  ("current() = %s, expected %s"):format(tostring(chroma.current()), name))
+assert(type(chroma.palette()) == "table", "palette() returned nil after setup")
+
 local function num(hex)
   assert(type(hex) == "string" and hex:find "#", "not a hex color: " .. tostring(hex))
   return tonumber(hex:gsub("#", ""), 16)
@@ -43,5 +48,16 @@ for _, spec in pairs(vim.api.nvim_get_hl(0, {})) do
   end
 end
 assert(groups > 500, "only " .. groups .. " colored groups after apply")
+
+-- Cache: calling list() twice must return the same table object.
+local list1 = chroma.list()
+local list2 = chroma.list()
+assert(list1 == list2, "list() should return the cached table on the second call")
+
+-- refresh() must invalidate the cache (new table, same contents).
+chroma.refresh()
+local list3 = chroma.list()
+assert(list1 ~= list3, "refresh() should return a new table after refresh()")
+assert(#list1 == #list3, "refresh() changed the number of themes")
 
 print(("ok: %s applied, %d colored groups, %d themes available"):format(vim.g.colors_name, groups, #chroma.list()))

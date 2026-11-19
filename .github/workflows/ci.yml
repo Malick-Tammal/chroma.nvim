@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Tests (${{ matrix.neovim-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - neovim-version: v0.9.5
+            allow-failure: false
+          - neovim-version: stable
+            allow-failure: false
+          - neovim-version: nightly
+            allow-failure: true
+    continue-on-error: ${{ matrix.allow-failure }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Neovim (${{ matrix.neovim-version }})
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.neovim-version }}
+
+      - name: Run Test Suite
+        run: bash ./tests/run.sh
+
+  lint:
+    name: Code Formatting (StyLua)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check StyLua Formatting
+        uses: JohnnyMorganz/stylua-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --check lua/ tests/

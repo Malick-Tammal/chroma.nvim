@@ -1,7 +1,8 @@
 local chroma = require("chroma")
 local resolve = require("chroma.engine.resolve")
 
-local name = vim.env.THEME or "monokai-fusion"
+-- Fixed reference theme; this integration test does not depend on THEME.
+local name = "monokai-fusion"
 chroma.setup { theme = name, persist = false }
 
 local p = chroma.palette()

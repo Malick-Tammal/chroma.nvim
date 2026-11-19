@@ -62,3 +62,39 @@ if #failures > 0 then
 end
 
 print("ok: all themes valid")
+
+-- Transparency pass: apply a sample of themes with transparency = true and verify
+-- that Normal.bg becomes nil (no crash, no leftover background).
+local TRANSPARENCY_SAMPLE = { "monokai-fusion", "catppuccin-latte", "everforest" }
+local transparency_failures = {}
+
+for _, sample_name in ipairs(TRANSPARENCY_SAMPLE) do
+  local entry = nil
+  for _, e in ipairs(themes) do
+    if e.name == sample_name then
+      entry = e
+      break
+    end
+  end
+  if entry and not entry.error then
+    local ok2, err2 = pcall(apply.apply, sample_name, entry.theme, { transparency = true })
+    if not ok2 then
+      transparency_failures[#transparency_failures + 1] = sample_name .. ": " .. tostring(err2)
+    else
+      local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal", link = false }).bg
+      if normal_bg ~= nil then
+        transparency_failures[#transparency_failures + 1] =
+          sample_name .. ": Normal.bg = " .. tostring(normal_bg) .. ", expected nil"
+      end
+    end
+  end
+end
+
+if #transparency_failures > 0 then
+  print(("FAIL: transparency failures in %d theme(s)"):format(#transparency_failures))
+  for _, msg in ipairs(transparency_failures) do
+    print("  " .. msg)
+  end
+  vim.cmd("cq")
+end
+print(("ok: transparency pass clean for %d sample themes"):format(#TRANSPARENCY_SAMPLE))

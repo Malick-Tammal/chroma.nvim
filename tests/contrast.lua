@@ -18,8 +18,10 @@ local ACCENTS = {
   blue = true,
 }
 
-local MIN_NORMAL = 4.5
-local MIN_ACCENT = 4.5
+-- WCAG AA minimum contrast ratio (4.5:1) — single source of truth.
+local WCAG_AA = 4.5
+local MIN_NORMAL = WCAG_AA
+local MIN_ACCENT = WCAG_AA
 
 local themes = lib.load_themes(root .. "/lua/chroma/themes")
 local modules = require("chroma.highlights")
