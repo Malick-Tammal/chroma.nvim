@@ -80,9 +80,9 @@ base46 theme also works.
 
 - 🎨 **99+ themes** with a base46-compatible palette schema; drop in a palette file to add your own.
 - 🌈 **Data-driven highlights** for syntax, Treesitter, LSP, semantic tokens, and plugin integrations.
-- 🪄 **Deep customization** with transparent backgrounds, per-theme polish, and user overrides.
+- 🛠️ **Deep customization** with transparent backgrounds, per-theme polish, and user overrides.
 - 💾 **Persistent theme selection** across restarts with `:Chroma reset` to go back to the configured default.
-- 🔭 **Telescope picker** with inline palette swatches, plus a built-in Lualine theme.
+- 🔭 **Telescope picker** with inline palette swatches, and live colorscheme preview.
 - 🎯 **Clean events** with exactly one `ColorScheme` event per theme switch, so statuslines and bufferlines update naturally.
 
 ## 📋 Requirements
