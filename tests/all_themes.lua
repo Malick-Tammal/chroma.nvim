@@ -47,11 +47,13 @@ for _, entry in ipairs(themes) do
   end
 end
 
-print(("themes: %d total, %d applied, avg %d groups"):format(
-  #themes,
-  applied,
-  applied > 0 and math.floor(total_groups / applied) or 0
-))
+print(
+  ("themes: %d total, %d applied, avg %d groups"):format(
+    #themes,
+    applied,
+    applied > 0 and math.floor(total_groups / applied) or 0
+  )
+)
 
 if #failures > 0 then
   print(("FAIL: %d theme(s) with problems"):format(#failures))
@@ -83,8 +85,10 @@ for _, sample_name in ipairs(TRANSPARENCY_SAMPLE) do
     else
       local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal", link = false }).bg
       if normal_bg ~= nil then
-        transparency_failures[#transparency_failures + 1] =
-          sample_name .. ": Normal.bg = " .. tostring(normal_bg) .. ", expected nil"
+        transparency_failures[#transparency_failures + 1] = sample_name
+          .. ": Normal.bg = "
+          .. tostring(normal_bg)
+          .. ", expected nil"
       end
     end
   end

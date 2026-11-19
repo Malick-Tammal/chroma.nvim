@@ -1,6 +1,5 @@
 local M = {}
 
-
 local slate_950 = "#020617"
 local slate_900 = "#0f172a"
 local slate_800 = "#1e293b"
@@ -26,7 +25,6 @@ local red_500 = "#ef5350"
 local amber_400 = "#fbbf24"
 local amber_700 = "#b45309"
 local orange = "#fb923c"
-
 
 M.base_30 = {
   white = slate_200,
@@ -61,7 +59,6 @@ M.base_30 = {
   folder_bg = teal_300,
 }
 
-
 M.base_16 = {
   base00 = "#282c34",
   base01 = "#2d323c",
@@ -82,7 +79,6 @@ M.base_16 = {
 }
 
 M.type = "dark"
-
 
 M.polish_hl = {
   syntax = {
@@ -242,6 +238,5 @@ M.polish_hl = {
     CurSearch = { fg = slate_900, bg = amber_400 },
   },
 }
-
 
 return M

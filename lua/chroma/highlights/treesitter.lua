@@ -1,4 +1,3 @@
-
 local M = {
   ["@annotation"] = { fg = "cyan", italic = true },
   ["@attribute"] = { fg = "green" },

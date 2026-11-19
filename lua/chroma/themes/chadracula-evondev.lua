@@ -79,7 +79,6 @@ M.polish_hl = {
     Type = { fg = M.base_30.blue },
   },
 
-
   nvimtree = {
     NvimTreeFolderName = { fg = M.base_30.white },
     NvimTreeOpenedFolderName = { fg = M.base_30.white, bold = true },
@@ -87,6 +86,5 @@ M.polish_hl = {
 }
 
 M.type = "dark"
-
 
 return M

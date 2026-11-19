@@ -56,5 +56,4 @@ M.base_16 = {
 
 M.type = "dark"
 
-
 return M

@@ -54,5 +54,4 @@ M.base_16 = {
 
 M.type = "light"
 
-
 return M

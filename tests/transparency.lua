@@ -19,8 +19,7 @@ assert(type(normal.bg) == "number", "Normal.bg should be set without transparenc
 chroma.setup({ theme = name, persist = false, transparency = true })
 for _, group in ipairs(TRANSPARENT_GROUPS) do
   local h = hl(group)
-  assert(h.bg == nil,
-    ("transparency: %s.bg = %s, expected nil"):format(group, tostring(h.bg)))
+  assert(h.bg == nil, ("transparency: %s.bg = %s, expected nil"):format(group, tostring(h.bg)))
 end
 
 -- 3. Switching back to no transparency restores Normal.bg.

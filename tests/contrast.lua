@@ -54,7 +54,7 @@ for _, entry in ipairs(themes) do
           check(module .. ":" .. group, resolve.contrast(p[accent]), p[accent], MIN_ACCENT)
         elseif (spec.fg == "black" or spec.fg == "white") and ACCENTS[spec.bg] then
           if spec.bg_alpha == nil or type(spec.bg_alpha) ~= "number" then
-            errors[#errors + 1] = ("%s: %s:%s uses literal fg %q on %q (use { \"contrast\", %q }"):format(
+            errors[#errors + 1] = ('%s: %s:%s uses literal fg %q on %q (use { "contrast", %q }'):format(
               name,
               module,
               group,
@@ -83,7 +83,7 @@ if #failures > 0 then
       print("    " .. line)
     end
   end
-  vim.cmd "cq"
+  vim.cmd("cq")
 end
 
-print "ok: body text and accent blocks readable in all themes"
+print("ok: body text and accent blocks readable in all themes")

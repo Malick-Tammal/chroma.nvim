@@ -11,16 +11,12 @@ for _, name in ipairs(SAMPLE) do
   local data = data_mod.build(name, theme)
   assert(data, "picker data is nil for " .. name)
   assert(#data.preview_swatches > 0, "no preview swatches for " .. name)
-  assert(#data.inline_swatches == #data_mod.INLINE_SWATCH_KEYS,
-    "wrong inline swatch count for " .. name)
+  assert(#data.inline_swatches == #data_mod.INLINE_SWATCH_KEYS, "wrong inline swatch count for " .. name)
 
   local lines, spans = data_mod.preview_lines(data, 2)
-  assert(#lines >= 3,
-    name .. ": preview needs a title, separator and at least one swatch row")
-  assert(#spans == #data.preview_swatches,
-    name .. ": span count does not match swatch count")
-  assert(spans[1].row == 2,
-    ("%s: first swatch row = %d, expected 2"):format(name, spans[1].row))
+  assert(#lines >= 3, name .. ": preview needs a title, separator and at least one swatch row")
+  assert(#spans == #data.preview_swatches, name .. ": span count does not match swatch count")
+  assert(spans[1].row == 2, ("%s: first swatch row = %d, expected 2"):format(name, spans[1].row))
 
   for _, span in ipairs(spans) do
     local line = lines[span.row + 1]

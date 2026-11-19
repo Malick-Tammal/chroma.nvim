@@ -3,18 +3,17 @@ local resolve = require("chroma.engine.resolve")
 
 local name = vim.env.THEME or "monokai-fusion"
 -- persist=false: tests must not pick up a saved theme from the user's state.
-chroma.setup { theme = name, persist = false }
+chroma.setup({ theme = name, persist = false })
 
 local p = chroma.palette()
 assert(type(p) == "table", "palette is nil after setup")
 
 -- current() and palette() must reflect the applied theme immediately after setup.
-assert(chroma.current() == name,
-  ("current() = %s, expected %s"):format(tostring(chroma.current()), name))
+assert(chroma.current() == name, ("current() = %s, expected %s"):format(tostring(chroma.current()), name))
 assert(type(chroma.palette()) == "table", "palette() returned nil after setup")
 
 local function num(hex)
-  assert(type(hex) == "string" and hex:find "#", "not a hex color: " .. tostring(hex))
+  assert(type(hex) == "string" and hex:find("#"), "not a hex color: " .. tostring(hex))
   return tonumber(hex:gsub("#", ""), 16)
 end
 
@@ -22,12 +21,12 @@ local function hl(group)
   return vim.api.nvim_get_hl(0, { name = group, link = false })
 end
 
-local normal = hl "Normal"
+local normal = hl("Normal")
 assert(normal, "Normal is not defined")
 assert(normal.bg == num(p.black), ("Normal.bg = %06x, expected %s"):format(normal.bg or 0, p.black))
 assert(normal.fg == num(p.text), ("Normal.fg = %06x, expected text %s"):format(normal.fg or 0, p.text))
 
-local pmenu = hl "PmenuSel"
+local pmenu = hl("PmenuSel")
 assert(pmenu.bg == num(p.pmenu_bg), ("PmenuSel.bg = %06x, expected pmenu_bg %s"):format(pmenu.bg or 0, p.pmenu_bg))
 assert(
   pmenu.fg == num(resolve.contrast(p.pmenu_bg)),

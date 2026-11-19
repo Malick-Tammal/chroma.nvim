@@ -53,10 +53,7 @@ M.base16 = {
 }
 
 local function is_ref(value)
-  return type(value) == "string"
-    and value:sub(1, 1) ~= "#"
-    and value:upper() ~= "NONE"
-    and value:upper() ~= "NIL"
+  return type(value) == "string" and value:sub(1, 1) ~= "#" and value:upper() ~= "NONE" and value:upper() ~= "NIL"
 end
 
 local function check_spec(out, label, spec, palette)
@@ -64,7 +61,7 @@ local function check_spec(out, label, spec, palette)
     return
   end
 
-  for _, attr in ipairs { "fg", "bg", "sp" } do
+  for _, attr in ipairs({ "fg", "bg", "sp" }) do
     local value = spec[attr]
 
     if is_ref(value) and not palette[value] then
@@ -76,7 +73,7 @@ local function check_spec(out, label, spec, palette)
           out[#out + 1] = ("%s.%s = {contrast, %q} (unknown color)"):format(label, attr, tostring(name))
         end
       else
-        for _, name in ipairs { value[1], value[2] } do
+        for _, name in ipairs({ value[1], value[2] }) do
           if type(name) == "string" and name:sub(1, 1) ~= "#" and not palette[name] then
             out[#out + 1] = ("%s.%s = {%q, ...} (unknown color)"):format(label, attr, name)
           end

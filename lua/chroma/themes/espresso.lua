@@ -1,36 +1,36 @@
 local M = {}
 
 M.base_30 = {
-  white        = "#d9d9d9",
+  white = "#d9d9d9",
   darker_black = "#0d0d0d",
-  black        = "#171717",
-  black2       = "#1f1f1f",
-  one_bg       = "#242424",
-  one_bg2      = "#292929",
-  one_bg3      = "#383838",
-  grey         = "#424242",
-  grey_fg      = "#575757",
-  grey_fg2     = "#7a7a7a",
-  light_grey   = "#888888",
-  red          = "#ff7575",
-  baby_pink    = "#ffc1c1",
-  pink         = "#ed77be",
-  line         = "#2e2e2e",
-  green        = "#7dc5a2",
-  vibrant_green= "#9be6c1",
-  nord_blue    = "#349bef",
-  blue         = "#76bef9",
-  yellow       = "#e9a144",
-  sun          = "#f4c25f",
-  purple       = "#c993ef",
-  dark_purple  = "#baa8f5",
-  teal         = "#51decf",
-  orange       = "#fa8a40",
-  cyan         = "#62cae9",
-  statusline_bg= "#1e1e1e",
-  lightbg      = "#242424",
-  pmenu_bg     = "#9be6c1",
-  folder_bg    = "#76bef9",
+  black = "#171717",
+  black2 = "#1f1f1f",
+  one_bg = "#242424",
+  one_bg2 = "#292929",
+  one_bg3 = "#383838",
+  grey = "#424242",
+  grey_fg = "#575757",
+  grey_fg2 = "#7a7a7a",
+  light_grey = "#888888",
+  red = "#ff7575",
+  baby_pink = "#ffc1c1",
+  pink = "#ed77be",
+  line = "#2e2e2e",
+  green = "#7dc5a2",
+  vibrant_green = "#9be6c1",
+  nord_blue = "#349bef",
+  blue = "#76bef9",
+  yellow = "#e9a144",
+  sun = "#f4c25f",
+  purple = "#c993ef",
+  dark_purple = "#baa8f5",
+  teal = "#51decf",
+  orange = "#fa8a40",
+  cyan = "#62cae9",
+  statusline_bg = "#1e1e1e",
+  lightbg = "#242424",
+  pmenu_bg = "#9be6c1",
+  folder_bg = "#76bef9",
 }
 
 M.base_16 = {
@@ -53,6 +53,5 @@ M.base_16 = {
 }
 
 M.type = "dark"
-
 
 return M

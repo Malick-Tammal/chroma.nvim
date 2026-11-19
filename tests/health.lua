@@ -70,16 +70,23 @@ chroma.config.persist = false
 vim.health = orig_health
 vim.cmd("silent checkhealth chroma")
 
-local lines
-for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-  if vim.api.nvim_buf_get_name(buf):match("^health://") then
-    lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-    break
+local output = ""
+local ok = vim.wait(5000, function()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    local bname = vim.api.nvim_buf_get_name(buf)
+    if bname:match("health") or vim.bo[buf].filetype == "checkhealth" then
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      local text = table.concat(lines, "\n")
+      if text:find("themes found", 1, true) then
+        output = text
+        return true
+      end
+    end
   end
-end
-assert(lines and #lines > 0, ":checkhealth chroma produced no buffer")
-local output = table.concat(lines, "\n")
-assert(output:find("themes found", 1, true), ":checkhealth output missing theme count")
+  return false
+end, 50)
+
+assert(ok, ":checkhealth chroma output missing theme count")
 assert(not output:find("ERROR", 1, true), ":checkhealth reported an error")
 
 print("ok: :checkhealth chroma reports healthy state")

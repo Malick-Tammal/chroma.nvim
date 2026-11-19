@@ -1,4 +1,3 @@
-
 local M = {
   ["@lsp.type.class"] = { fg = "cyan" },
   ["@lsp.type.comment"] = { fg = "grey_fg", italic = true },

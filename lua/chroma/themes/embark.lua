@@ -70,5 +70,4 @@ M.polish_hl = {
   },
 }
 
-
 return M

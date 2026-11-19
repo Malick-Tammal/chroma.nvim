@@ -30,7 +30,7 @@ local function find_theme(name)
     return nil
   end
 
-  for _, prefix in ipairs { "chroma.themes.", "themes." } do
+  for _, prefix in ipairs({ "chroma.themes.", "themes." }) do
     local theme = require_theme(prefix .. name)
     if theme then
       return theme
@@ -50,7 +50,7 @@ function M.list()
   end
 
   local seen, out = {}, {}
-  for _, pattern in ipairs { "lua/chroma/themes/*.lua", "lua/themes/*.lua" } do
+  for _, pattern in ipairs({ "lua/chroma/themes/*.lua", "lua/themes/*.lua" }) do
     for _, file in ipairs(vim.api.nvim_get_runtime_file(pattern, true)) do
       local name = vim.fn.fnamemodify(file, ":t:r")
       if not seen[name] then
@@ -76,8 +76,7 @@ local function apply_theme(name, opts)
 
   local theme = M.find(name)
   if not theme then
-    return nil,
-      ("unknown theme %q (known: %s)"):format(tostring(name), table.concat(M.list(), ", "))
+    return nil, ("unknown theme %q (known: %s)"):format(tostring(name), table.concat(M.list(), ", "))
   end
 
   local ok, err = pcall(engine.apply, name, theme, M.config, { fire_event = opts.fire_event })

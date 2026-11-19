@@ -3,7 +3,7 @@ local resolve = require("chroma.engine.resolve")
 
 -- Fixed reference theme; this integration test does not depend on THEME.
 local name = "monokai-fusion"
-chroma.setup { theme = name, persist = false }
+chroma.setup({ theme = name, persist = false })
 
 local p = chroma.palette()
 local lualine = require("chroma.engine.lualine").get(p)

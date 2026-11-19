@@ -53,7 +53,7 @@ M.base_16 = {
 }
 
 M.polish_hl = {
-  defaults =  {
+  defaults = {
     Visual = { bg = M.base_30.black2 },
   },
   syntax = {
@@ -73,6 +73,5 @@ M.polish_hl = {
 }
 
 M.type = "light"
-
 
 return M

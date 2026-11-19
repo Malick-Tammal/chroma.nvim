@@ -63,5 +63,4 @@ M.polish_hl = {
 
 M.type = "dark"
 
-
 return M

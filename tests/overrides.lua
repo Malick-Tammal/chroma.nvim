@@ -17,8 +17,10 @@ chroma.setup({
   overrides = { Normal = { fg = OVERRIDE_FG } },
 })
 local normal = hl("Normal")
-assert(normal.fg == expected_fg,
-  ("table override: Normal.fg = %06x, expected %06x"):format(normal.fg or 0, expected_fg))
+assert(
+  normal.fg == expected_fg,
+  ("table override: Normal.fg = %06x, expected %06x"):format(normal.fg or 0, expected_fg)
+)
 
 -- 2. Function override: same but via callback receiving palette and theme name.
 chroma.setup({
@@ -29,8 +31,10 @@ chroma.setup({
   end,
 })
 normal = hl("Normal")
-assert(normal.fg == expected_fg,
-  ("function override: Normal.fg = %06x, expected %06x"):format(normal.fg or 0, expected_fg))
+assert(
+  normal.fg == expected_fg,
+  ("function override: Normal.fg = %06x, expected %06x"):format(normal.fg or 0, expected_fg)
+)
 
 -- 3. Broken function override: must not crash, should notify an error.
 local notified = false
@@ -43,7 +47,9 @@ end
 chroma.setup({
   theme = name,
   persist = false,
-  overrides = function() error("intentional override error") end,
+  overrides = function()
+    error("intentional override error")
+  end,
 })
 vim.notify = orig_notify
 assert(notified, "broken override function did not notify an error")
@@ -51,7 +57,6 @@ assert(notified, "broken override function did not notify an error")
 -- 4. No override: Normal.fg returns to palette color (no override leaks between setups).
 chroma.setup({ theme = name, persist = false })
 local fresh = hl("Normal")
-assert(fresh.fg ~= expected_fg,
-  "no-override apply still has the overridden fg — override leaked between setups")
+assert(fresh.fg ~= expected_fg, "no-override apply still has the overridden fg — override leaked between setups")
 
 print("ok: table, function, and broken overrides behave correctly")

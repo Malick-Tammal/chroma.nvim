@@ -84,5 +84,4 @@ M.polish_hl = {
   statusline = { St_pos_text = { fg = M.base_30.white } },
 }
 
-
 return M

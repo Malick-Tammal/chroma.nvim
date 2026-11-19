@@ -21,7 +21,7 @@ for _, key in ipairs(lib.base16) do
   base16[key] = "#808080"
 end
 
-assert_complete(palette.build { base_30 = base30, type = "dark" })
-assert_complete(palette.build { base_16 = base16, type = "light" })
+assert_complete(palette.build({ base_30 = base30, type = "dark" }))
+assert_complete(palette.build({ base_16 = base16, type = "light" }))
 
 print("ok: partial palettes fill")
