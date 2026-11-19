@@ -1,6 +1,7 @@
 local M = {}
 
 local chroma = require("chroma")
+local engine = require("chroma.engine.apply")
 local data_mod = require("chroma.pickers.data")
 
 function M.pick()
@@ -10,14 +11,60 @@ function M.pick()
     return
   end
 
+  -- Snapshot the active theme so it can be silently restored if the picker is dismissed.
+  local original_theme = chroma.current()
+  local previewed_theme = original_theme
+  local pending_id = 0
+
   local defined_hl = {}
 
   local function define_hl(group, hex)
     if not defined_hl[group] then
       vim.api.nvim_set_hl(0, group, { fg = hex })
-      defined_hl[group] = true
+      defined_hl[group] = hex -- store hex so groups can be re-defined after engine.apply's hi clear
     end
     return group
+  end
+
+  local function redefine_swatch_hls()
+    for group, hex in pairs(defined_hl) do
+      vim.api.nvim_set_hl(0, group, { fg = hex })
+    end
+  end
+
+  local function preview_theme(name)
+    if name == previewed_theme then
+      return
+    end
+    -- Debounce: only the last move within 80 ms actually fires.
+    pending_id = pending_id + 1
+    local my_id = pending_id
+    vim.defer_fn(function()
+      if my_id ~= pending_id then
+        return
+      end
+      local theme = chroma.find(name)
+      if not theme then
+        return
+      end
+      previewed_theme = name
+      pcall(engine.apply, name, theme, chroma.config, { fire_event = false })
+      redefine_swatch_hls()
+    end, 80)
+  end
+
+  local function restore_original()
+    -- Invalidate any pending preview so it doesn't fire after restore.
+    pending_id = pending_id + 1
+    if previewed_theme == original_theme then
+      return
+    end
+    local theme = chroma.find(original_theme)
+    if theme then
+      pcall(engine.apply, original_theme, theme, chroma.config, { fire_event = false })
+      redefine_swatch_hls()
+    end
+    previewed_theme = original_theme
   end
 
   local function swatch_hl(hex)
@@ -80,6 +127,7 @@ function M.pick()
 
   local function select(prompt_bufnr)
     local entry = action_state.get_selected_entry()
+    restore_original()
     actions.close(prompt_bufnr)
     if entry and entry.value then
       chroma.apply(entry.value)
@@ -189,6 +237,44 @@ function M.pick()
         end
 
         picker:register_completion_callback(reapply_swatches)
+
+        local function preview_selected()
+          local entry = action_state.get_selected_entry()
+          if entry and entry.value then
+            preview_theme(entry.value)
+          end
+        end
+
+        -- Live preview: hook into Telescope's selection actions so arrow-key navigation
+        -- triggers preview. CursorMoved on results_bufnr covers mouse clicks (the cursor
+        -- physically moves there), but does NOT fire for arrow keys because the cursor
+        -- stays in the prompt buffer while Telescope updates the highlight internally.
+        local next_with_preview = actions.move_selection_next:enhance({ post = preview_selected })
+        local prev_with_preview = actions.move_selection_previous:enhance({ post = preview_selected })
+        map("i", "<Down>", next_with_preview)
+        map("i", "<Up>", prev_with_preview)
+        map("n", "j", next_with_preview)
+        map("n", "k", prev_with_preview)
+        map("i", "<C-n>", next_with_preview)
+        map("i", "<C-p>", prev_with_preview)
+
+        local preview_augroup = vim.api.nvim_create_augroup("ChromaPickerPreview", { clear = true })
+        vim.api.nvim_create_autocmd("CursorMoved", {
+          group = preview_augroup,
+          buffer = picker.results_bufnr,
+          callback = preview_selected,
+        })
+
+        -- Restore the original theme whenever the picker closes (dismiss or select).
+        vim.api.nvim_create_autocmd("BufWipeout", {
+          group = preview_augroup,
+          buffer = prompt_bufnr,
+          once = true,
+          callback = function()
+            restore_original()
+            pcall(vim.api.nvim_del_augroup_by_id, preview_augroup)
+          end,
+        })
 
         actions.select_default:replace(function()
           select(prompt_bufnr)
