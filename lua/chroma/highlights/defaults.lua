@@ -1,10 +1,10 @@
 local M = {
-  Normal = { fg = "text", bg = "black" },
-  NormalNC = { fg = "text", bg = "black" },
-  NormalFloat = { fg = "text", bg = "darker_black" },
-  FloatBorder = { fg = "darker_black", bg = "darker_black" },
-  FloatTitle = { fg = "darker_black", bg = "purple", bold = true },
-  FloatFooter = { fg = "grey", bg = "darker_black" },
+  Normal = { fg = "text", bg = "one_bg" },
+  NormalNC = { fg = "text", bg = "one_bg" },
+  NormalFloat = { fg = "text", bg = "black" },
+  FloatBorder = { fg = "black", bg = "black" },
+  FloatTitle = { fg = { "contrast", "purple" }, bg = "purple", bold = true },
+  FloatFooter = { fg = "grey", bg = "black" },
 
   Cursor = { fg = { "contrast", "white" }, bg = "white" },
   lCursor = { link = "Cursor" },
@@ -19,8 +19,8 @@ local M = {
   LineNrBelow = { fg = "grey_fg" },
   CursorLineNr = { fg = "yellow", bold = true },
 
-  SignColumn = { bg = "black" },
-  FoldColumn = { fg = "grey", bg = "black" },
+  SignColumn = { bg = "one_bg" },
+  FoldColumn = { fg = "grey", bg = "one_bg" },
   Folded = { fg = "light_grey", bg = "one_bg3" },
 
   Visual = { bg = "one_bg2" },
@@ -38,9 +38,9 @@ local M = {
   PmenuExtra = { fg = "grey", bg = "one_bg" },
 
   StatusLine = { fg = "grey_fg2", bg = "black2" },
-  StatusLineNC = { fg = "grey", bg = "darker_black" },
-  WinBar = { fg = "grey_fg2", bg = "black" },
-  WinBarNC = { fg = "grey", bg = "darker_black" },
+  StatusLineNC = { fg = "grey", bg = "black2" },
+  WinBar = { fg = "grey_fg2", bg = "black2" },
+  WinBarNC = { fg = "grey", bg = "black2" },
 
   TabLine = { fg = "grey", bg = "darker_black" },
   TabLineFill = { bg = "darker_black" },

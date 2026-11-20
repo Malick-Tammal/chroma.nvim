@@ -1,23 +1,24 @@
 local M = {
-  NeoTreeNormal = { fg = "grey_fg2", bg = "darker_black" },
-  NeoTreeNormalNC = { fg = "grey_fg2", bg = "darker_black" },
-  NeoTreeSignColumn = { fg = "grey", bg = "darker_black" },
-  NeoTreeWinSeparator = { fg = "one_bg", bg = "darker_black" },
-  NeoTreeEndOfBuffer = { fg = "darker_black", bg = "darker_black" },
+  NeoTreeNormal = { fg = "grey_fg2", bg = "black2" },
+  NeoTreeNormalNC = { fg = "grey_fg2", bg = "black2" },
+  NeoTreeSignColumn = { fg = "grey", bg = "black2" },
+  NeoTreeWinSeparator = { fg = "one_bg", bg = "black2" },
+  NeoTreeEndOfBuffer = { fg = "darker_black", bg = "black2" },
 
-  NeoTreeIndentMarker = { fg = "grey_fg2", nocombine = true },
+  NeoTreeIndentMarker = { fg = "grey_fg", nocombine = true },
   NeoTreeExpander = { fg = "grey_fg2", nocombine = true },
   NeoTreeDotfile = { fg = "grey_fg" },
 
   NeoTreeRootName = { fg = "yellow", bold = true },
-  NeoTreeDirectoryName = { fg = "light_grey" },
+  NeoTreeDirectoryName = { fg = "white" },
   NeoTreeDirectoryIcon = { fg = "orange" },
   NeoTreeFileName = { fg = "white" },
-  NeoTreeFileIcon = { fg = "grey_fg2" },
+  NeoTreeFileIcon = { fg = "white" },
   NeoTreeSymbolicLinkTarget = { fg = "purple" },
 
   NeoTreeCursorLine = { bg = "one_bg" },
-  NeoTreeStatusLine = { fg = "grey", bg = "darker_black" },
+  NeoTreeStatusLine = { fg = "yellow", bg = "black2" },
+  NeoTreeStatusLineNC = { fg = "yellow", bg = "black2" },
 
   NeoTreeGitModified = { fg = "yellow" },
   NeoTreeGitAdded = { fg = "green" },
@@ -30,9 +31,10 @@ local M = {
 
   NeoTreeTitleBar = { fg = { "contrast", "cyan" }, bg = "cyan" },
   NeoTreeModified = { fg = "yellow" },
-  NeoTreeFloatBorder = { fg = "one_bg2", bg = "darker_black" },
   NeoTreeMessage = { fg = "grey_fg" },
-  NeoTreePreview = { bg = "one_bg" },
+  NeoTreeFloatNormal = { fg = "black", bg = "black" },
+  NeoTreeFloatBorder = { fg = "black", bg = "black" },
+  NeoTreePreview = { fg = "black", bg = "black" },
 }
 
 return M

@@ -204,7 +204,7 @@ function M.check()
     end
   end
   if package.loaded["lualine"] then
-    h.info("lualine is loaded; use `theme = function() return require('chroma.engine.lualine').get() end`")
+    h.info("lualine is loaded; use `options = { theme = 'chroma' }`")
   end
 end
 

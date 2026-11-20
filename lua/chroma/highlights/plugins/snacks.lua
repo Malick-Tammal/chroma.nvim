@@ -39,7 +39,7 @@ local M = {
   SnacksNotifierTitleError = { fg = "darker_black", bg = "red" },
   SnacksNotifierTitleDebug = { fg = "darker_black", bg = "grey_fg" },
 
-  SnacksDashboardNormal = { fg = "text", bg = "black" },
+  SnacksDashboardNormal = { fg = "text", bg = "one_bg" },
   SnacksDashboardDesc = { fg = "grey_fg2" },
   SnacksDashboardText = { fg = "grey_fg2" },
   SnacksDashboardKey = { fg = "orange" },

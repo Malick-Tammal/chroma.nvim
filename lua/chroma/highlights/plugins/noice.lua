@@ -1,6 +1,6 @@
 local M = {
-  NoiceCmdlinePopup = { bg = "darker_black", fg = "text" },
-  NoiceCmdlinePopupBorder = { fg = "darker_black", bg = "darker_black" },
+  NoiceCmdlinePopup = { bg = "black", fg = "text" },
+  NoiceCmdlinePopupBorder = { fg = "black", bg = "black" },
 
   NoiceCmdlinePopupTitle = { fg = "blue", bg = "one_bg" },
   NoiceCmdlinePopupTitleCmdline = { fg = "blue", bg = "one_bg" },

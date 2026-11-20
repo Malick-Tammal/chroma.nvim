@@ -3,6 +3,14 @@ local M = {
   TodoFgTODO = { fg = "yellow" },
   TodoSignTODO = { fg = "yellow" },
 
+  TodoBgINFO = { fg = { "contrast", "vibrant_green" }, bg = "vibrant_green", bold = true },
+  TodoFgINFO = { fg = "vibrant_green" },
+  TodoSignINFO = { fg = "vibrant_green" },
+
+  TodoBgTIP = { fg = { "contrast", "baby_pink" }, bg = "baby_pink", bold = true },
+  TodoFgTIP = { fg = "baby_pink" },
+  TodoSignTIP = { fg = "baby_pink" },
+
   TodoBgFIX = { fg = { "contrast", "red" }, bg = "red", bold = true },
   TodoFgFIX = { fg = "red" },
   TodoSignFIX = { fg = "red" },

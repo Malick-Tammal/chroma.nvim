@@ -24,7 +24,7 @@ local function require_optional(path)
   return nil
 end
 
-local function load_polish(name)
+function M.load_polish(name)
   if type(name) ~= "string" then
     return {}
   end
@@ -38,6 +38,8 @@ local function load_polish(name)
 
   return {}
 end
+
+local load_polish = M.load_polish
 
 local TRANSPARENT_GROUPS = {
   "Normal",

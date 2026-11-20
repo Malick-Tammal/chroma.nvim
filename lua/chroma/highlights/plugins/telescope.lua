@@ -16,8 +16,8 @@ local M = {
   TelescopeResultsDirectory = { fg = "cyan" },
   TelescopeResultsFileIcon = { fg = "cyan" },
 
-  TelescopePreviewNormal = { bg = "darker_black", fg = "light_grey" },
-  TelescopePreviewBorder = { fg = "darker_black", bg = "darker_black" },
+  TelescopePreviewNormal = { bg = "black", fg = "light_grey" },
+  TelescopePreviewBorder = { fg = "black", bg = "black" },
   TelescopePreviewTitle = { fg = { "contrast", "yellow" }, bg = "yellow" },
   TelescopePreviewLine = { bg = "one_bg" },
   TelescopePreviewMatch = { bg = "one_bg3" },

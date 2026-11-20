@@ -22,7 +22,7 @@ local M = {
   RenderMarkdownQuote4 = { fg = "green" },
   RenderMarkdownQuote5 = { fg = "cyan" },
   RenderMarkdownQuote6 = { fg = "purple" },
-  RenderMarkdownCode = { bg = "darker_black" },
+  RenderMarkdownCode = { bg = "black2" },
   RenderMarkdownCodeInline = { bg = "one_bg2", fg = "text" },
   RenderMarkdownDash = { fg = "one_bg3" },
   RenderMarkdownTableHead = { fg = "yellow" },

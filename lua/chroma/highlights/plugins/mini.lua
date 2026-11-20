@@ -9,9 +9,9 @@ local M = {
   MiniIconsRed = { fg = "red" },
   MiniIconsYellow = { fg = "yellow" },
 
-  MiniFilesNormal = { fg = "text", bg = "darker_black" },
-  MiniFilesBorder = { fg = "darker_black", bg = "darker_black" },
-  MiniFilesBorderModified = { fg = "yellow", bg = "darker_black" },
+  MiniFilesNormal = { fg = "text", bg = "black" },
+  MiniFilesBorder = { fg = "black", bg = "black" },
+  MiniFilesBorderModified = { fg = "yellow", bg = "black" },
   MiniFilesTitle = { fg = "grey_fg2", bg = "one_bg2" },
   MiniFilesTitleFocused = { fg = { "contrast", "green" }, bg = "green" },
   MiniFilesDirectory = { fg = "cyan" },
