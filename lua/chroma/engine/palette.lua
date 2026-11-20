@@ -77,8 +77,7 @@ function M.build(theme)
   p.fg = p.fg or p.white
   p.type = theme.type
 
-  -- base_30.white is sometimes a bright accent, so prefer whichever foreground
-  -- has more contrast against the background.
+  -- NOTE: base_30.white can be an accent; pick whichever foreground yields higher contrast on black.
   local text = p.base05 or p.white
   if p.white and text and p.black then
     local white_ratio = resolve.ratio(p.white, p.black)

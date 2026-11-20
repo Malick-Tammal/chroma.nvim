@@ -40,7 +40,7 @@ local function check_lualine_for_theme(theme_name)
 end
 
 local function check_features_for_theme(theme_name, p)
-  -- Test standard lualine theme loader (lua/lualine/themes/chroma.lua)
+  -- TEST: Standard lualine theme loader (table and function loading conventions).
   local chroma_theme = require("lualine.themes.chroma")
   assert(type(chroma_theme.normal) == "table", "chroma theme failed to resolve normal mode via index")
   assert(chroma_theme.normal.a.bg == p.yellow, "chroma theme normal.a.bg mismatch")
@@ -48,14 +48,13 @@ local function check_features_for_theme(theme_name, p)
   assert(type(called_theme.normal) == "table", "chroma theme failed to resolve when called as function")
   print("ok: lualine theme loader")
 
-  -- Test transparency
+  -- TEST: Transparency cascading and lualine-scoped override.
   chroma.setup({ theme = theme_name, persist = false, transparency = true })
   local trans_theme = require("chroma.engine.lualine").get(p, theme_name)
   assert(trans_theme.normal.c.bg == "NONE", "transparency did not set normal.c.bg to NONE")
   assert(trans_theme.inactive.c.bg == "NONE", "transparency did not set inactive.c.bg to NONE")
   assert(trans_theme.inactive.a.bg == "NONE", "transparency did not set inactive.a.bg to NONE")
 
-  -- Test lualine specific transparency override (transparency = false overrides global transparency = true)
   chroma.setup({
     theme = theme_name,
     persist = false,
@@ -66,7 +65,7 @@ local function check_features_for_theme(theme_name, p)
   assert(opaque_lualine.normal.c.bg ~= "NONE", "lualine transparency override failed")
   print("ok: lualine transparency")
 
-  -- Test user overrides with semantic palette keys
+  -- TEST: User overrides via table and dynamic callback function.
   chroma.setup({
     theme = theme_name,
     persist = false,
@@ -82,7 +81,6 @@ local function check_features_for_theme(theme_name, p)
   assert(overridden.normal.c.fg == p.blue, "lualine override fg failed")
   assert(overridden.normal.c.bg == p.one_bg, "lualine override bg failed")
 
-  -- Test user overrides as a function
   chroma.setup({
     theme = theme_name,
     persist = false,
@@ -101,7 +99,7 @@ local function check_features_for_theme(theme_name, p)
   assert(fn_overridden.insert.b.bg == p.black, "lualine function override bg failed")
   print("ok: lualine user overrides")
 
-  -- Test per-theme polish
+  -- TEST: Per-theme polish integration.
   package.loaded["chroma.polish.mock_theme"] = {
     lualine = {
       normal = {
@@ -117,13 +115,12 @@ local function check_features_for_theme(theme_name, p)
 end
 
 if explicit_theme then
-  -- Single-theme test mode: test only the specified colorscheme
   assert(chroma.find(explicit_theme), ("theme %q not found in chroma themes"):format(tostring(explicit_theme)))
   local p = check_lualine_for_theme(explicit_theme)
   print(("ok: lualine mode accents (%s)"):format(explicit_theme))
   check_features_for_theme(explicit_theme, p)
 else
-  -- Full matrix mode: test ALL 99 themes for lualine mode accents, structure, and contrast
+  -- TEST: Validate all themes matrix for mode accents, sections, and contrast.
   local lib = dofile(here .. "/lib.lua")
   local themes = lib.load_themes(root .. "/lua/chroma/themes")
   for _, entry in ipairs(themes) do
@@ -131,7 +128,7 @@ else
   end
   print(("ok: lualine mode accents and structure (%d themes)"):format(#themes))
 
-  -- Core engine feature checks using default theme "monokai-fusion"
+  -- NOTE: Run feature checks using monokai-fusion as the reference engine fixture.
   local default_theme = "monokai-fusion"
   chroma.setup({ theme = default_theme, persist = false })
   local p = chroma.palette()

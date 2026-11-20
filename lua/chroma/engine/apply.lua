@@ -134,7 +134,7 @@ function M.apply(name, theme, config, opts)
   M.palette = p
   vim.g.colors_name = "ch-" .. name
 
-  -- :colorscheme fires ColorScheme itself after sourcing the colors/ shim.
+  -- NOTE: :colorscheme fires ColorScheme itself after sourcing the colors/ shim.
   if opts.fire_event ~= false then
     vim.api.nvim_exec_autocmds("ColorScheme", { pattern = vim.g.colors_name })
   end

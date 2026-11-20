@@ -2,13 +2,11 @@ local chroma = require("chroma")
 local resolve = require("chroma.engine.resolve")
 
 local name = (_G.arg and _G.arg[1] ~= "" and _G.arg[1]) or vim.env.THEME or "monokai-fusion"
--- persist=false: tests must not pick up a saved theme from the user's state.
+-- NOTE: Disable persistence to isolate test execution from user state.
 chroma.setup({ theme = name, persist = false })
 
 local p = chroma.palette()
 assert(type(p) == "table", "palette is nil after setup")
-
--- current() and palette() must reflect the applied theme immediately after setup.
 assert(chroma.current() == name, ("current() = %s, expected %s"):format(tostring(chroma.current()), name))
 assert(type(chroma.palette()) == "table", "palette() returned nil after setup")
 
@@ -48,12 +46,11 @@ for _, spec in pairs(vim.api.nvim_get_hl(0, {})) do
 end
 assert(groups > 500, "only " .. groups .. " colored groups after apply")
 
--- Cache: calling list() twice must return the same table object.
+-- TEST: Verify list() caching and refresh() cache invalidation.
 local list1 = chroma.list()
 local list2 = chroma.list()
 assert(list1 == list2, "list() should return the cached table on the second call")
 
--- refresh() must invalidate the cache (new table, same contents).
 chroma.refresh()
 local list3 = chroma.list()
 assert(list1 ~= list3, "refresh() should return a new table after refresh()")

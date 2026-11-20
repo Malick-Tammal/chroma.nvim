@@ -114,7 +114,7 @@ function M.color(value, palette)
   if type(value) == "table" then
     local a, b, c = value[1], value[2], value[3]
 
-    -- Pick black/white per theme so accent blocks stay readable in light and dark palettes.
+    -- NOTE: Compute contrast fg dynamically so accent blocks stay readable in light/dark palettes.
     if a == "contrast" then
       return M.contrast(palette[b])
     end

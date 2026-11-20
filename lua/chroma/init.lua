@@ -5,6 +5,7 @@ M.config = require("chroma.config")
 local engine = require("chroma.engine.apply")
 local persist = require("chroma.persist")
 
+-- PERF: Cache discovered runtime themes to avoid repeated filesystem traversals.
 local theme_cache
 
 local function notify(msg, level)
@@ -157,6 +158,7 @@ function M.setup(opts)
       if sub == nil then
         notify("usage: :Chroma pick | apply <name> | current | list | reset", vim.log.levels.WARN)
       elseif sub == "pick" then
+        -- TODO: Add support for alternative pickers (e.g. snacks.picker or fzf-lua).
         require("chroma.pickers.telescope").pick()
       elseif sub == "current" then
         notify("current: " .. tostring(M.current()))

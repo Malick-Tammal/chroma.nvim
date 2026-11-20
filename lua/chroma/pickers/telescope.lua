@@ -1,3 +1,4 @@
+-- TODO: Add alternative picker backends (e.g. snacks.picker, mini.pick, fzf-lua).
 local M = {}
 
 local chroma = require("chroma")
@@ -11,7 +12,7 @@ function M.pick()
     return
   end
 
-  -- Snapshot the active theme so it can be silently restored if the picker is dismissed.
+  -- NOTE: Snapshot the active theme so it can be silently restored if the picker is dismissed.
   local original_theme = chroma.current()
   local previewed_theme = original_theme
   local pending_id = 0
@@ -21,7 +22,7 @@ function M.pick()
   local function define_hl(group, hex)
     if not defined_hl[group] then
       vim.api.nvim_set_hl(0, group, { fg = hex })
-      defined_hl[group] = hex -- store hex so groups can be re-defined after engine.apply's hi clear
+      defined_hl[group] = hex -- NOTE: Store hex so swatch groups can be re-defined after engine.apply's hi clear.
     end
     return group
   end
@@ -36,7 +37,7 @@ function M.pick()
     if name == previewed_theme then
       return
     end
-    -- Debounce: only the last move within 80 ms actually fires.
+    -- PERF: Debounce preview by 80ms so rapid navigation only renders the final selection.
     pending_id = pending_id + 1
     local my_id = pending_id
     vim.defer_fn(function()
@@ -60,7 +61,7 @@ function M.pick()
   end
 
   local function restore_original()
-    -- Invalidate any pending preview so it doesn't fire after restore.
+    -- NOTE: Invalidate any pending preview timer so it doesn't fire after restore.
     pending_id = pending_id + 1
     if previewed_theme == original_theme then
       return
@@ -257,10 +258,7 @@ function M.pick()
           end
         end
 
-        -- Live preview: hook into Telescope's selection actions so arrow-key navigation
-        -- triggers preview. CursorMoved on results_bufnr covers mouse clicks (the cursor
-        -- physically moves there), but does NOT fire for arrow keys because the cursor
-        -- stays in the prompt buffer while Telescope updates the highlight internally.
+        -- NOTE: Hook into Telescope's selection actions for live preview; CursorMoved covers clicks, actions cover keyboard navigation.
         local next_with_preview = actions.move_selection_next:enhance({ post = preview_selected })
         local prev_with_preview = actions.move_selection_previous:enhance({ post = preview_selected })
         map("i", "<Down>", next_with_preview)
@@ -277,7 +275,7 @@ function M.pick()
           callback = preview_selected,
         })
 
-        -- Restore the original theme whenever the picker closes (dismiss or select).
+        -- NOTE: Restore the original theme whenever the picker closes (dismiss or select).
         vim.api.nvim_create_autocmd("BufWipeout", {
           group = preview_augroup,
           buffer = prompt_bufnr,

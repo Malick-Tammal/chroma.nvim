@@ -1,5 +1,5 @@
 local chroma = require("chroma")
--- Fixed reference theme; these integration tests do not depend on THEME.
+-- NOTE: Fixed reference theme; CLI command integration tests are theme-agnostic.
 local name = "monokai-fusion"
 
 chroma.setup({ theme = name, persist = false })

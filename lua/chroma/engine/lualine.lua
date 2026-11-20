@@ -41,6 +41,7 @@ function M.get(p, theme_name)
 
   p = p or apply_mod.palette
   if type(p) ~= "table" then
+    -- INFO: Fall back to lualine's auto theme if palette is unavailable.
     return "auto"
   end
 
@@ -94,7 +95,7 @@ function M.get(p, theme_name)
     },
   }
 
-  -- 1. Apply per-theme polish (from lua/chroma/polish/<theme>.lua and theme.polish_hl.lualine)
+  -- NOTE: 1. Apply per-theme polish (from polish/<theme>.lua and theme.polish_hl.lualine).
   local polish = {}
   if type(theme_name) == "string" then
     local ext_polish = apply_mod.load_polish(theme_name)
@@ -116,7 +117,7 @@ function M.get(p, theme_name)
     end
   end
 
-  -- 2. Apply user overrides (from chroma.config.lualine.overrides)
+  -- NOTE: 2. Apply user overrides (from chroma.config.lualine.overrides).
   local overrides = type(lualine_cfg) == "table" and lualine_cfg.overrides or nil
   if overrides then
     if type(overrides) == "function" then

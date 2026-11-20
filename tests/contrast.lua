@@ -1,4 +1,4 @@
--- WCAG AA (4.5:1) for body text and accents; literal black/white on vivid accents is a regression.
+-- NOTE: Validates WCAG AA (4.5:1) minimum contrast ratio for body text and accent blocks.
 
 local here = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":h")
 local root = here .. "/.."
@@ -22,7 +22,6 @@ local ACCENTS = {
   blue = true,
 }
 
--- WCAG AA minimum contrast ratio (4.5:1) — single source of truth.
 local WCAG_AA = 4.5
 local MIN_NORMAL = WCAG_AA
 local MIN_ACCENT = WCAG_AA

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Helper: colour a string
+# NOTE: Helper to emit ANSI color codes.
 color_seq() {
     local color=$1 txt=$2
     case $color in
@@ -18,7 +18,7 @@ color_seq() {
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# If a theme name is passed as the first argument, run a selective test suite for that theme.
+# NOTE: Accept an optional theme name as first argument for a selective per-theme run.
 SELECTED_THEME=""
 if [ "$#" -gt 0 ]; then
     SELECTED_THEME="$1"
@@ -31,7 +31,7 @@ else
     unset THEME || true
 fi
 
-# Validate the theme exists before running any tests.
+# NOTE: Validate the theme exists before running any tests.
 if [ -n "$SELECTED_THEME" ] && [ ! -f "$ROOT/lua/chroma/themes/$SELECTED_THEME.lua" ]; then
     echo "$(color_seq red "error:") theme $(color_seq yellow "\"$SELECTED_THEME\"") not found"
     echo "       run $(color_seq cyan "./tests/run.sh") without arguments to test all themes"
@@ -50,12 +50,13 @@ if [ -n "$SELECTED_THEME" ]; then
     printf "                  %s\n\n" "$(color_seq green "✦  ( $SELECTED_THEME )")"
 fi
 
+# NOTE: Isolate test state from user sessions via a temporary XDG_STATE_HOME.
 STATE_HOME="$(mktemp -d)"
 trap 'rm -rf "$STATE_HOME"' EXIT
 export XDG_STATE_HOME="$STATE_HOME"
 
-# Run a Lua test script under headless nvim, colouring ok:/FAIL: in output.
-# Explicitly checks PIPESTATUS[0] so a failing nvim exit code is not swallowed by sed.
+# NOTE: Run a Lua test script under headless nvim; colorize ok:/FAIL: in output.
+# WARN: Checks PIPESTATUS[0] explicitly so a failing nvim exit code is not swallowed by sed.
 run() {
     local script="$1"
     shift || true
@@ -70,7 +71,7 @@ run() {
     fi
 }
 
-# Run a named test section with elapsed-time display.
+# NOTE: Run a named test section and print elapsed time.
 PASS_COUNT=0
 run_section() {
     local label="$1" script="$2"
@@ -83,7 +84,7 @@ run_section() {
     PASS_COUNT=$(( PASS_COUNT + 1 ))
 }
 
-# Shared hex-purity check (used by both selective and full runs).
+# NOTE: Shared hex-purity lint check; run in both selective and full suites.
 check_hex_purity() {
     echo "$(color_seq cyan "== hex purity")"
     if grep -rn '#[0-9a-fA-F]\{6\}' \
@@ -101,14 +102,14 @@ check_hex_purity() {
 SUITE_START=$SECONDS
 
 if [ -n "$SELECTED_THEME" ]; then
-    # Selective run: only test the specific theme.
+    # TEST: Selective run — palette, contrast, smoke, and lualine for the specified theme only.
     run_section "== palette check ($THEME)" "$ROOT/tests/palette_check.lua" "$SELECTED_THEME"
     run_section "== contrast ($THEME)"      "$ROOT/tests/contrast.lua" "$SELECTED_THEME"
     run_section "== smoke test ($THEME)"    "$ROOT/tests/smoke.lua" "$SELECTED_THEME"
     run_section "== lualine ($THEME)"       "$ROOT/tests/lualine.lua" "$SELECTED_THEME"
     check_hex_purity
 else
-    # Full suite: all_themes already covers every theme.
+    # TEST: Full suite — covers all 99 themes across all test categories.
     run_section "== all themes"        "$ROOT/tests/all_themes.lua"
     run_section "== partial palettes"  "$ROOT/tests/partial_palette.lua"
     run_section "== contrast"          "$ROOT/tests/contrast.lua"

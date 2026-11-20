@@ -1,5 +1,6 @@
 local M = {}
 
+-- NOTE: Persists the active theme name in stdpath("state")/chroma/current across sessions.
 local function state_dir()
   return vim.fn.stdpath("state") .. "/chroma"
 end

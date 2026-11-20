@@ -65,8 +65,7 @@ end
 
 print("ok: all themes valid")
 
--- Transparency pass: apply a sample of themes with transparency = true and verify
--- that Normal.bg becomes nil (no crash, no leftover background).
+-- TEST: Sample transparency pass verifying Normal.bg clears cleanly with no leftover background.
 local TRANSPARENCY_SAMPLE = { "monokai-fusion", "catppuccin-latte", "everforest" }
 local transparency_failures = {}
 
