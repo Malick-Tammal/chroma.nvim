@@ -344,6 +344,21 @@ require("chroma").setup {
 | `scrollbar` | `highlights/plugins/scrollbar.lua` |
 | `minuet-ai` | `highlights/plugins/minuet-ai.lua` |
 | `smear-cursor` | `highlights/plugins/smear-cursor.lua` |
+| `lualine` | `engine/lualine.lua` |
+
+For `lualine`, polish tables specify mode and section definitions rather than raw highlight group names. Semantic palette keys (e.g. `"one_bg"`, `"yellow"`, `"NONE"`) and contrast tuples (`{ "contrast", "accent" }`) are automatically resolved:
+
+```lua
+-- lua/chroma/polish/<theme>.lua
+return {
+  lualine = {
+    normal = {
+      b = { fg = "yellow", bg = "one_bg" },
+      c = { fg = "grey_fg", bg = "black2" },
+    },
+  },
+}
+```
 
 The most useful groups to tune are usually `CursorLine`, `CursorLineNr`,
 `Visual`, `Search`, `IncSearch`, `NormalFloat`, `FloatBorder`, `WinSeparator`,

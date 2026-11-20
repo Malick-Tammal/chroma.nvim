@@ -65,6 +65,10 @@ Call |chroma.setup()| once during startup:
       transparency = false,     -- set common backgrounds to NONE
       persist = true,           -- remember the last applied theme
       overrides = nil,          -- table or function(palette, theme)
+      lualine = {               -- optional lualine options
+        transparency = nil,     -- override global transparency for lualine
+        overrides = nil,        -- table or function(palette, theme)
+      },
     }
 <
 `lazy = false` and `priority = 1000` make the colorscheme available before
@@ -301,13 +305,34 @@ These keys are used by `polish_hl` and by `lua/chroma/polish/{theme}.lua`.
     minuet-ai         highlights/plugins/minuet-ai.lua
     smear-cursor      highlights/plugins/smear-cursor.lua
 
-Lualine uses the builder in `lua/chroma/engine/lualine.lua`: >lua
+Lualine uses the theme module at `lua/lualine/themes/chroma.lua`: >lua
+
+    require("lualine").setup {
+      options = {
+        theme = "chroma",
+      },
+    }
+<
+You can also pass the theme builder as a callback function: >lua
 
     require("lualine").setup {
       options = {
         theme = function()
           return require("chroma.engine.lualine").get()
         end,
+      },
+    }
+<
+When `transparency = true` is passed to `chroma.setup()`, Lualine section `c`
+and inactive statuslines automatically become transparent. Custom overrides
+can be configured via `lualine.overrides`: >lua
+
+    require("chroma").setup {
+      lualine = {
+        transparency = nil,
+        overrides = {
+          normal = { c = { bg = "black2" } },
+        },
       },
     }
 <

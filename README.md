@@ -132,6 +132,17 @@ require("chroma").setup {
   transparency = false,     -- set backgrounds to NONE
   persist = true,           -- remember the last applied theme
   overrides = nil,          -- table or function(palette, theme)
+  lualine = {               -- optional lualine options
+    transparency = nil,     -- override global transparency for lualine
+    overrides = nil,        -- table or function(palette, theme)
+  },
+}
+
+-- In your lualine setup:
+require("lualine").setup {
+  options = {
+    theme = "chroma",
+  },
 }
 ```
 

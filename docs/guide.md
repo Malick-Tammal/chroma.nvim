@@ -85,7 +85,7 @@ require("chroma").setup {
   -- Theme applied on startup when no valid saved theme exists.
   theme = "monokai-fusion",
 
-  -- Make common backgrounds transparent.
+  -- Make common backgrounds transparent (also propagates to Lualine).
   transparency = false,
 
   -- Save the active theme under stdpath("state")/chroma/current.
@@ -94,6 +94,14 @@ require("chroma").setup {
 
   -- Optional highlight overrides. Accepts a table or function(palette, theme).
   overrides = nil,
+
+  -- Optional Lualine configuration.
+  lualine = {
+    -- Override global transparency specifically for Lualine (nil to inherit).
+    transparency = nil,
+    -- Custom section overrides: table or function(palette, theme).
+    overrides = nil,
+  },
 }
 ```
 
@@ -271,8 +279,17 @@ missing.
 
 ## Lualine
 
-The repository includes a Lualine theme builder at `lua/chroma/engine/lualine.lua`.
-Pass it as a function so it is rebuilt after each theme switch:
+chroma ships a built-in Lualine theme at `lua/lualine/themes/chroma.lua`. Configure Lualine with:
+
+```lua
+require("lualine").setup {
+  options = {
+    theme = "chroma",
+  },
+}
+```
+
+You can also pass the theme builder as a callback function if preferred:
 
 ```lua
 require("lualine").setup {
@@ -285,8 +302,76 @@ require("lualine").setup {
 ```
 
 `chroma.apply()` calls `require("lualine").refresh()` after switching, so the
-statusline follows the active theme. `:checkhealth chroma` reports whether the
-builder loads and returns a valid theme.
+statusline follows the active theme automatically. `:checkhealth chroma` reports
+whether the theme module loads cleanly.
+
+### Mode accents & palette layout
+
+Lualine sections are synchronized per mode to provide colorful bookends and readable text:
+
+- **Sections `a` & `z`**: Vibrant mode accent background with bold contrast text:
+  - Normal: `yellow`
+  - Insert: `green`
+  - Visual: `purple`
+  - Command: `cyan`
+  - Terminal: `orange`
+  - Replace: `red`
+- **Sections `b` & `y`**: Elevated surface (`one_bg`) with mode-accented text & icons.
+- **Sections `c` & `x`**: Clean dark surface (`black2`) with crisp readable text.
+- **Inactive**: Muted foreground and dark background to minimize distraction.
+
+### Transparency
+
+When `transparency = true` is set in `chroma.setup()`, Lualine section `c` and
+inactive statuslines automatically inherit transparent backgrounds (`bg = "NONE"`).
+
+To control Lualine's transparency independently of the editor, set `lualine.transparency`:
+
+```lua
+require("chroma").setup {
+  transparency = false, -- editor background is opaque
+  lualine = {
+    transparency = true, -- statusline section c is transparent
+  },
+}
+```
+
+### Overrides
+
+Custom mode and section styling can be supplied via `lualine.overrides` in `chroma.setup()`.
+Values can be semantic palette key names (`"one_bg"`, `"yellow"`, `"NONE"`),
+contrast tuples (`{ "contrast", "accent" }`), or raw hex strings:
+
+```lua
+require("chroma").setup {
+  lualine = {
+    overrides = {
+      normal = {
+        c = { fg = "grey_fg", bg = "black2" },
+      },
+    },
+  },
+}
+```
+
+Or dynamically via a function:
+
+```lua
+require("chroma").setup {
+  lualine = {
+    overrides = function(palette, theme)
+      return {
+        normal = {
+          b = { fg = palette.yellow, bg = palette.one_bg },
+        },
+      }
+    end,
+  },
+}
+```
+
+Per-theme overrides can also be placed in `lua/chroma/polish/<theme>.lua` or
+in a theme's inline `polish_hl.lualine`. See the [highlight reference](highlights.md#integration-keys).
 
 ## Supported plugins
 

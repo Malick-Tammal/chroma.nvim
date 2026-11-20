@@ -11,8 +11,15 @@ return {
   telescope = {
     TelescopeBorder = { fg = "darker_black" },
   },
+  lualine = {
+    normal = {
+      c = { fg = "grey_fg", bg = "black2" },
+    },
+  },
 }
 ```
 
 The table key is the highlight module name (`plugins/telescope.lua` becomes
-`telescope`).
+`telescope`), or `lualine` for statusline mode and section customization.
+Semantic palette tokens (`"one_bg"`, `"yellow"`, `"NONE"`) are automatically
+resolved.
