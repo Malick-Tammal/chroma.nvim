@@ -1,7 +1,7 @@
 local here = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":h")
 local lib = dofile(here .. "/lib.lua")
 
-local theme_name = vim.env.THEME or "monokai-fusion"
+local theme_name = (_G.arg and _G.arg[1] ~= "" and _G.arg[1]) or vim.env.THEME or "monokai-fusion"
 local theme = require("chroma.themes." .. theme_name)
 local palette = require("chroma.engine.palette").build(theme)
 

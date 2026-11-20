@@ -1,7 +1,7 @@
 local chroma = require("chroma")
 local resolve = require("chroma.engine.resolve")
 
-local name = vim.env.THEME or "monokai-fusion"
+local name = (_G.arg and _G.arg[1] ~= "" and _G.arg[1]) or vim.env.THEME or "monokai-fusion"
 -- persist=false: tests must not pick up a saved theme from the user's state.
 chroma.setup({ theme = name, persist = false })
 
@@ -23,7 +23,7 @@ end
 
 local normal = hl("Normal")
 assert(normal, "Normal is not defined")
-assert(normal.bg == num(p.black), ("Normal.bg = %06x, expected %s"):format(normal.bg or 0, p.black))
+assert(normal.bg == num(p.one_bg), ("Normal.bg = %06x, expected one_bg %s"):format(normal.bg or 0, p.one_bg))
 assert(normal.fg == num(p.text), ("Normal.fg = %06x, expected text %s"):format(normal.fg or 0, p.text))
 
 local pmenu = hl("PmenuSel")

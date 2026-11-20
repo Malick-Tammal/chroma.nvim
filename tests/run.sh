@@ -25,7 +25,11 @@ if [ "$#" -gt 0 ]; then
     shift
 fi
 
-export THEME="${SELECTED_THEME:-${THEME:-monokai-fusion}}"
+if [ -n "$SELECTED_THEME" ]; then
+    export THEME="$SELECTED_THEME"
+else
+    unset THEME || true
+fi
 
 # Validate the theme exists before running any tests.
 if [ -n "$SELECTED_THEME" ] && [ ! -f "$ROOT/lua/chroma/themes/$SELECTED_THEME.lua" ]; then
@@ -53,9 +57,11 @@ export XDG_STATE_HOME="$STATE_HOME"
 # Run a Lua test script under headless nvim, colouring ok:/FAIL: in output.
 # Explicitly checks PIPESTATUS[0] so a failing nvim exit code is not swallowed by sed.
 run() {
+    local script="$1"
+    shift || true
     timeout 120 nvim --headless --clean -i NONE \
         --cmd "set rtp+=$ROOT" \
-        -l "$1" 2>&1 | sed \
+        -l "$script" "$@" 2>&1 | sed \
             -e 's/ok:/\x1b[32mok:\x1b[0m/g' \
             -e 's/FAIL:/\x1b[31mFAIL:\x1b[0m/g'
     local nv_exit="${PIPESTATUS[0]}"
@@ -68,9 +74,10 @@ run() {
 PASS_COUNT=0
 run_section() {
     local label="$1" script="$2"
+    shift 2 || true
     echo "$(color_seq cyan "$label")"
     local start=$SECONDS
-    run "$script"
+    run "$script" "$@"
     local elapsed=$(( SECONDS - start ))
     echo "   $(color_seq yellow "  ↳ ${elapsed}s")"
     PASS_COUNT=$(( PASS_COUNT + 1 ))
@@ -95,8 +102,10 @@ SUITE_START=$SECONDS
 
 if [ -n "$SELECTED_THEME" ]; then
     # Selective run: only test the specific theme.
-    run_section "== palette check ($THEME)" "$ROOT/tests/palette_check.lua"
-    run_section "== smoke test ($THEME)"    "$ROOT/tests/smoke.lua"
+    run_section "== palette check ($THEME)" "$ROOT/tests/palette_check.lua" "$SELECTED_THEME"
+    run_section "== contrast ($THEME)"      "$ROOT/tests/contrast.lua" "$SELECTED_THEME"
+    run_section "== smoke test ($THEME)"    "$ROOT/tests/smoke.lua" "$SELECTED_THEME"
+    run_section "== lualine ($THEME)"       "$ROOT/tests/lualine.lua" "$SELECTED_THEME"
     check_hex_purity
 else
     # Full suite: all_themes already covers every theme.

@@ -7,6 +7,10 @@ local lib = dofile(here .. "/lib.lua")
 local palette_mod = require("chroma.engine.palette")
 local resolve = require("chroma.engine.resolve")
 
+local explicit_theme = (_G.arg and _G.arg[1] ~= "" and _G.arg[1])
+  or (vim.env.THEME and vim.env.THEME ~= "" and vim.env.THEME)
+  or nil
+
 local ACCENTS = {
   white = true,
   yellow = true,
@@ -23,7 +27,16 @@ local WCAG_AA = 4.5
 local MIN_NORMAL = WCAG_AA
 local MIN_ACCENT = WCAG_AA
 
-local themes = lib.load_themes(root .. "/lua/chroma/themes")
+local themes
+if explicit_theme then
+  local chroma = require("chroma")
+  assert(chroma.find(explicit_theme), ("theme %q not found in chroma themes"):format(tostring(explicit_theme)))
+  local theme = require("chroma.themes." .. explicit_theme)
+  themes = { { name = explicit_theme, theme = theme } }
+else
+  themes = lib.load_themes(root .. "/lua/chroma/themes")
+end
+
 local modules = require("chroma.highlights")
 local failures = {}
 local checked = 0
@@ -73,7 +86,11 @@ for _, entry in ipairs(themes) do
   end
 end
 
-print(("contrast: %d themes, %d checks"):format(#themes, checked))
+if explicit_theme then
+  print(("contrast: %s, %d checks"):format(explicit_theme, checked))
+else
+  print(("contrast: %d themes, %d checks"):format(#themes, checked))
+end
 
 if #failures > 0 then
   print(("FAIL: %d theme(s) with unreadable colors"):format(#failures))
@@ -86,4 +103,8 @@ if #failures > 0 then
   vim.cmd("cq")
 end
 
-print("ok: body text and accent blocks readable in all themes")
+if explicit_theme then
+  print(("ok: body text and accent blocks readable (%s)"):format(explicit_theme))
+else
+  print("ok: body text and accent blocks readable in all themes")
+end
