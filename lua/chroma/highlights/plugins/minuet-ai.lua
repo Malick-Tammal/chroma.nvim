@@ -1,5 +1,5 @@
 local M = {
-  MinuetVirtualText = { fg = "light_grey" },
+  MinuetVirtualText = { fg = "grey_fg2" },
 }
 
 return M
