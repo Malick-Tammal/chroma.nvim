@@ -50,6 +50,12 @@ function M.pick()
       previewed_theme = name
       pcall(engine.apply, name, theme, chroma.config, { fire_event = false })
       redefine_swatch_hls()
+      if package.loaded["lualine"] then
+        pcall(function()
+          require("lualine").setup()
+        end)
+      end
+      vim.cmd("redrawstatus!")
     end, 80)
   end
 
@@ -63,6 +69,12 @@ function M.pick()
     if theme then
       pcall(engine.apply, original_theme, theme, chroma.config, { fire_event = false })
       redefine_swatch_hls()
+      if package.loaded["lualine"] then
+        pcall(function()
+          require("lualine").setup()
+        end)
+      end
+      vim.cmd("redrawstatus!")
     end
     previewed_theme = original_theme
   end
