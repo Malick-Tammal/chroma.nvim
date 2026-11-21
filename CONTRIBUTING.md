@@ -170,7 +170,7 @@ testing, and the full submission checklist. In short, a theme contribution is:
    schema and a credit header when vendored.
 2. `colors/ch-<name>.lua` — `:colorscheme` shim.
 3. Optional `lua/chroma/polish/<name>.lua` — integration-keyed tweaks.
-4. Optional `assets/preview/<name>.png` — screenshot for the README.
+4. Optional `assets/preview/<name>/*.webp` — screenshots for the README.
 5. Attribution in `lua/chroma/themes/CREDITS.md` when the palette is adapted.
 6. `THEME=<name> bash tests/run.sh`, plus `:Chroma list`, `:Chroma pick`,
    `:colorscheme ch-<name>`, and `:checkhealth chroma`.

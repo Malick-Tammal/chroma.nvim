@@ -30,11 +30,11 @@ base46 theme also works.
 <summary><b>Monokai Fusion</b> (Default)</summary>
 <br>
 
-<img src="assets/preview/monokai-fusion/multi.png" alt="Monokai Fusion Code View" width="100%" />
+<img src="assets/preview/monokai-fusion/multi.webp" alt="Monokai Fusion Code View" width="100%" />
 
 <p align="center">
-  <img src="assets/preview/monokai-fusion/dashboard.png" alt="Monokai Fusion Dashboard" width="49%" />
-  <img src="assets/preview/monokai-fusion/picker.png" alt="Monokai Fusion Picker" width="49%" />
+  <img src="assets/preview/monokai-fusion/dashboard.webp" alt="Monokai Fusion Dashboard" width="49%" />
+  <img src="assets/preview/monokai-fusion/picker.webp" alt="Monokai Fusion Picker" width="49%" />
 </p>
 </details>
 
@@ -42,11 +42,11 @@ base46 theme also works.
 <summary><b>Everforest</b></summary>
 <br>
 
-<img src="assets/preview/everforest/multi.png" alt="Everforest Code View" width="100%" />
+<img src="assets/preview/everforest/multi.webp" alt="Everforest Code View" width="100%" />
 
 <p align="center">
-  <img src="assets/preview/everforest/dashboard.png" alt="Everforest Dashboard" width="49%" />
-  <img src="assets/preview/everforest/picker.png" alt="Everforest Picker" width="49%" />
+  <img src="assets/preview/everforest/dashboard.webp" alt="Everforest Dashboard" width="49%" />
+  <img src="assets/preview/everforest/picker.webp" alt="Everforest Picker" width="49%" />
 </p>
 </details>
 
@@ -54,11 +54,11 @@ base46 theme also works.
 <summary><b>Gruvbox Material</b></summary>
 <br>
 
-<img src="assets/preview/gruvbox-material/multi.png" alt="Gruvbox Material Code View" width="100%" />
+<img src="assets/preview/gruvbox-material/multi.webp" alt="Gruvbox Material Code View" width="100%" />
 
 <p align="center">
-  <img src="assets/preview/gruvbox-material/dashboard.png" alt="Gruvbox Material Dashboard" width="49%" />
-  <img src="assets/preview/gruvbox-material/picker.png" alt="Gruvbox Material Picker" width="49%" />
+  <img src="assets/preview/gruvbox-material/dashboard.webp" alt="Gruvbox Material Dashboard" width="49%" />
+  <img src="assets/preview/gruvbox-material/picker.webp" alt="Gruvbox Material Picker" width="49%" />
 </p>
 </details>
 
@@ -66,11 +66,11 @@ base46 theme also works.
 <summary><b>Everblush</b></summary>
 <br>
 
-<img src="assets/preview/everblush/multi.png" alt="Everblush Code View" width="100%" />
+<img src="assets/preview/everblush/multi.webp" alt="Everblush Code View" width="100%" />
 
 <p align="center">
-  <img src="assets/preview/everblush/dashboard.png" alt="Everblush Dashboard" width="49%" />
-  <img src="assets/preview/everblush/picker.png" alt="Everblush Picker" width="49%" />
+  <img src="assets/preview/everblush/dashboard.webp" alt="Everblush Dashboard" width="49%" />
+  <img src="assets/preview/everblush/picker.webp" alt="Everblush Picker" width="49%" />
 </p>
 </details>
 

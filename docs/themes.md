@@ -375,8 +375,9 @@ Community themes are welcome. To add one to chroma.nvim:
 
 4. **Add polish if needed** at `lua/chroma/polish/my-theme.lua`.
 
-5. **Add a preview** at `assets/preview/my-theme.png`. Use a full-screen
-   screenshot that shows code, the statusline, and at least one float or the
+5. **Add previews** under `assets/preview/my-theme/` in WebP, for example
+   `multi.webp`, `dashboard.webp`, and `picker.webp`. Use full-screen
+   screenshots that show code, the statusline, and at least one float or the
    file tree. Avoid desktop backgrounds and terminal chrome.
 
 6. **Add credits** to [`lua/chroma/themes/CREDITS.md`](../lua/chroma/themes/CREDITS.md)
