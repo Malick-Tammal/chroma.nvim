@@ -3,16 +3,16 @@ local M = {
   CmpSel = { link = "PmenuSel" },
   CmpBorder = { fg = "one_bg2", bg = "black" },
   CmpDoc = { bg = "darker_black" },
-  CmpDocBorder = { fg = "black2", bg = "black2" },
-  CmpDocNormal = { bg = "black2", fg = "grey_fg2" },
-  CmpDocFloat = { bg = "black2" },
+  CmpDocBorder = { fg = "black", bg = "black" },
+  CmpDocNormal = { bg = "black", fg = "grey_fg2" },
+  CmpDocFloat = { bg = "black" },
   CmpGhostText = { fg = "grey", italic = true },
 
   CmpItemAbbr = { fg = "text" },
   CmpItemAbbrDeprecated = { fg = "grey", strikethrough = true },
   CmpItemAbbrMatch = { fg = "yellow", bold = true },
   CmpItemAbbrMatchFuzzy = { fg = "yellow" },
-  CmpItemMenu = { fg = "grey_fg" },
+  CmpItemMenu = { fg = "grey" },
   CmpItemKind = { fg = "purple" },
 }
 

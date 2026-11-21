@@ -32,8 +32,9 @@ local M = {
   NeoTreeTitleBar = { fg = { "contrast", "cyan" }, bg = "cyan" },
   NeoTreeModified = { fg = "yellow" },
   NeoTreeMessage = { fg = "grey_fg" },
-  NeoTreeFloatNormal = { fg = "black", bg = "black" },
+  NeoTreeFloatNormal = { fg = "white", bg = "black" },
   NeoTreeFloatBorder = { fg = "black", bg = "black" },
+  NeoTreeFloatTitle = { fg = { "contrast", "green" }, bg = "green" },
   NeoTreePreview = { fg = "black", bg = "black" },
 }
 
