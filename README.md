@@ -190,9 +190,26 @@ minuet-ai, smear-cursor, and lualine. See the
 
 ## 🤝 Contributing
 
-Bug reports, plugin integrations, and new themes are welcome! Read
-[CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow and
-[docs/themes.md](docs/themes.md#submitting-a-theme) to contribute a theme.
+**chroma.nvim is brand new and actively growing — and we'd love your help shaping it!**
+
+Whether you are fixing bugs, improving documentation, or adding integrations for your favorite plugins, all contributions are warmly welcome.
+
+### 🎨 Craft your dream colorscheme & go wild!
+
+Because themes in chroma.nvim are **100% data-driven palettes** (no messy highlight logic required), authoring a theme takes just minutes.
+
+We want to see the wildest, most creative community themes imaginable:
+- 🌴 **GTA VI / Vice City**: Neon pinks, palm-tree purples, and vibrant ocean turquoise.
+- ⚡ **Cyberpunk 2077**: Glitchy neon yellows, hot magenta, and high-voltage contrast.
+- 🌌 **Synthwave / Outrun**, retro anime aesthetics, sci-fi terminals, or whatever vibe fuels your flow state.
+
+If you've created a custom palette, don't keep it to yourself — submit a PR and have it shipped directly with chroma.nvim!
+
+### 🛠️ Getting started
+
+- Check out the [Theme Creation Guide](docs/themes.md#submitting-a-theme) to see the palette schema and how easy it is to add a theme.
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, testing, and linting guidelines.
+- Have a plugin you love that needs highlight integration? Check [docs/highlights.md](docs/highlights.md) to add it.
 
 ## 💖 Credits
 
