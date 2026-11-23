@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/banner.svg" width="350" alt="chroma.nvim logo" />
+  <img src="./assets/banner2.webp" width="600" alt="chroma.nvim logo" />
 </div>
 
 <div align="center">
@@ -9,14 +9,27 @@
 
 <br />
 
+<p align="center">━━━━━━━━━━━━━━━━━━━━ ✦ ━━━━━━━━━━━━━━━━━━━━</p>
+
+<br />
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Neovim-0.9+-3D4035?style=for-the-badge&logo=neovim&colorA=282922&logoColor=A9DC76" />
+  <img src="https://img.shields.io/badge/Lua-BCB1F5?style=for-the-badge&logo=lua&logoColor=4A4277" />
+    <a href="https://github.com/malick-tammal/chroma.nvim/releases"><img src="https://img.shields.io/github/v/release/malick-tammal/chroma.nvim?colorA=282922&colorB=A9DC76&style=for-the-badge&cacheSeconds=4300" alt="Forks" /></a>
+</p>
+
 <p align="center">
   <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim"><img src="https://img.shields.io/github/stars/malick-tammal/chroma.nvim?colorA=282922&colorB=FFD866&style=for-the-badge&cacheSeconds=4300" alt="Stars" /></a>
-  <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim"><img src="https://img.shields.io/github/issues/malick-tammal/chroma.nvim?colorA=282922&colorB=BCB1F5&style=for-the-badge&cacheSeconds=4300" alt="Issues" /></a>
+  <a href="https://dotfyle.com/Malick-Tammal/chroma.nvim"><img src="https://img.shields.io/github/issues/malick-tammal/chroma.nvim?colorA=282922&colorB=FF6188&style=for-the-badge&cacheSeconds=4300" alt="Issues" /></a>
   <a href="https://github.com/malick-tammal/chroma.nvim/contributors"><img src="https://img.shields.io/github/contributors/malick-tammal/chroma.nvim?colorA=282922&colorB=FDAD85&style=for-the-badge&cacheSeconds=4300" alt="Contributors" /></a>
-  <a href="https://github.com/malick-tammal/chroma.nvim/network/members"><img src="https://img.shields.io/github/forks/malick-tammal/chroma.nvim?colorA=282922&colorB=A9DC76&style=for-the-badge&cacheSeconds=4300" alt="Forks" /></a>
+  <a href="https://github.com/malick-tammal/chroma.nvim/network/members"><img src="https://img.shields.io/github/forks/malick-tammal/chroma.nvim?colorA=282922&colorB=78DCE8&style=for-the-badge&cacheSeconds=4300" alt="Forks" /></a>
 </p>
 
 ---
+
+<br />
+
 
 🎨 **chroma.nvim** derives every highlight group from a small palette, so one theme
 file styles syntax, Treesitter, LSP, semantic tokens, and 20+ plugin
